@@ -16,6 +16,8 @@ interface ProfileComponentProps {
 // }
 
   const PreferenceComponent: React.FC<ProfileComponentProps> = ({ userId }) => {
+    console.log("line:100", userId);
+    
   const dispatch = useAppDispatch();
   const userPreference = useAppSelector((state) => state.preference.userPreference);  
   console.log("line:1", userPreference);

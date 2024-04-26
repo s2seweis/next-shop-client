@@ -10,7 +10,9 @@ const ProductComponent: React.FC = () => {
   console.log("line:1", products);
   
   const status = useAppSelector((state) => state.products.status);
+  console.log("line:2", status);
   const error = useAppSelector((state) => state.products.error);
+  console.log("line:3", error);
 
   useEffect(() => {
     if (status === 'idle') {

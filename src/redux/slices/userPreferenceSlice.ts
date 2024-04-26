@@ -16,11 +16,14 @@ const initialState: UserPreferenceState = {
 export const fetchUserPreference = createAsyncThunk(
   'userPreference/fetchUserPreference',
   async (userId: string) => {
+    console.log("line:554 - #############", userId);
+    
     try {
       const response = await axios.get<any>(
-        `https://thriving-cajeta-47cc44.netlify.app/user-preference/${userId}`,
+        `https://next-shop-server-aafff1b333cc.herokuapp.com/user-preference/${userId}`,
+
       );
-      console.log("line:555", response);
+      console.log("line:555 - #############", response);
       
       return response.data;
     } catch (error) {
@@ -39,7 +42,7 @@ export const updateUserPreference = createAsyncThunk(
   async ({ userId, formData }: UpdateUserPreferencePayload) => {
     try {
       const response = await axios.put<any>(
-        `https://thriving-cajeta-47cc44.netlify.app/user-preference/${userId}`,
+        `https://next-shop-server-aafff1b333cc.herokuapp.com/user-preference/${userId}`,
         formData,
       );
       return response.data;
