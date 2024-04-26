@@ -30,10 +30,14 @@ export const options: NextAuthOptions = {
 
         try {
           // Make Axios request to login route
-          const response = await axios.post('http://localhost:3005/login', {
+          const response = await axios.post('https://next-shop-server-aafff1b333cc.herokuapp.com/login', {
+          // const response = await axios.post('http://localhost:3005/login', {
             email,
             password,
           });
+
+          console.log("line:200-#####################", response);
+          
 
           // Check if the response is successful
           if (response.data) {
@@ -115,7 +119,8 @@ export const options: NextAuthOptions = {
         const profileName = profile?.name;
     
         // Make a POST request to your API route
-        const response = await axios.post('http://localhost:3005/register-oauth', {
+        const response = await axios.post('https://next-shop-server-aafff1b333cc.herokuapp.com/register-oauth', {
+        // const response = await axios.post('http://localhost:3005/register-oauth', {
           email: profileEmail,
           full_name: profileName
         });

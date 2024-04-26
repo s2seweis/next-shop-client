@@ -18,7 +18,8 @@ export const fetchUserProfile = createAsyncThunk(
   async (userId: string) => {
     try {
       const response = await axios.get(
-        `http://localhost:3005/users/${userId}`
+        `https://next-shop-server-aafff1b333cc.herokuapp.com/users/${userId}`
+        // `http://localhost:3005/users/${userId}`
       );
       return response.data;
     } catch (error) {
@@ -32,7 +33,8 @@ export const updateUserProfile = createAsyncThunk(
   async ({ userId, formData }: { userId: string; formData: any }) => {
     try {
       const response = await axios.put(
-        `http://localhost:3005/users/${userId}`,
+        `https://next-shop-server-aafff1b333cc.herokuapp.com/users/${userId}`,
+        // `http://localhost:3005/users/${userId}`,
         formData
       );
       return response.data;
