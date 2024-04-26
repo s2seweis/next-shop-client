@@ -18,7 +18,7 @@ export const fetchUserPreference = createAsyncThunk(
   async (userId: string) => {
     try {
       const response = await axios.get<any>(
-        `http://localhost:3005/user-preference/${userId}`,
+        `https://thriving-cajeta-47cc44.netlify.app/user-preference/${userId}`,
       );
       console.log("line:555", response);
       
@@ -39,7 +39,7 @@ export const updateUserPreference = createAsyncThunk(
   async ({ userId, formData }: UpdateUserPreferencePayload) => {
     try {
       const response = await axios.put<any>(
-        `http://localhost:3005/user-preference/${userId}`,
+        `https://thriving-cajeta-47cc44.netlify.app/user-preference/${userId}`,
         formData,
       );
       return response.data;

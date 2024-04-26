@@ -18,7 +18,7 @@ export const fetchPassword = createAsyncThunk(
   async (userId: string) => {
     try {
       const response = await axios.get<string>(
-        `http://localhost:3005/password/${userId}`,
+        `https://thriving-cajeta-47cc44.netlify.app/password/${userId}`,
       );
       return response.data;
     } catch (error) {
@@ -37,7 +37,7 @@ export const updatePassword = createAsyncThunk(
   async ({ userId, formData }: UpdatePasswordPayload) => {
     try {
       const response = await axios.put<string>(
-        `http://localhost:3005/password/${userId}`,
+        `https://thriving-cajeta-47cc44.netlify.app/password/${userId}`,
         formData,
       );
       return response.data;
