@@ -1,0 +1,23 @@
+// Define color variables
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$success-color: #28a745;
+$info-color: #17a2b8;
+$warning-color: #ffc107;
+$danger-color: #dc3545;
+
+// Additional colors
+$text-color: #333;
+$background-color: #f8f9fa;
+
+// Assignments for semantic naming
+$brand-primary: $primary-color;
+$brand-secondary: $secondary-color;
+$brand-success: $success-color;
+$brand-info: $info-color;
+$brand-warning: $warning-color;
+$brand-danger: $danger-color;
+
+// Other color combinations
+$link-color: $primary-color; // Adjust for link color
+$hover-color: darken($link-color, 10%); // Darken link color on hover

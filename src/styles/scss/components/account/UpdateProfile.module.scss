@@ -1,0 +1,85 @@
+// UpdateProfile.module.scss
+
+.profileContainer {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    // min-width: 300px;
+    // width: 350px;
+    width: -webkit-fill-available;
+    // height: 640px;
+    // margin-top: 100px;
+  
+    h1 {
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+  }
+  
+  .profileInfo {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .formGroup {
+    margin-bottom: 15px;
+  
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+  
+    input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+  }
+  
+  .roundImageContainer {
+    width: 150px; // Adjust according to your requirement
+    height: 150px; // Adjust according to your requirement
+    border-radius: 50%; // Makes the container round
+    overflow: hidden; // Clips the content outside the container
+    // border: 2px solid #000; // Example border styling
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); // Example box shadow
+    display: flex;
+    margin: auto;
+  
+    img {
+      width: 100%; // Ensures the image fills the container
+      height: auto; // Maintains aspect ratio
+      object-fit: scale-down; // Scales the image while maintaining its aspect ratio to cover the entire container
+      // object-fit: cover; // Scales the image while maintaining its aspect ratio to cover the entire container
+    }
+  }
+  
+  .button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .imgTitle {
+    text-align: center;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+  }
+  

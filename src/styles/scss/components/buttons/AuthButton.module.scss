@@ -1,0 +1,31 @@
+// LoginButton.scss
+
+.loginButtonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.buttonLogin,
+.buttonLogout {
+  padding: 10px 15px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #53c548; // Default color
+  color: rgb(83, 77, 77);
+  margin: 0 10px;
+  transition: background-color 0.3s ease; // Smooth transition for background-color
+
+  &:hover {
+    background-color: #53c548; // Darker color on hover
+    color: #fff; // White text color on hover
+  }
+}
+
+.buttonLogout {
+  background-color: #dc3545;
+
+  &:hover {
+    background-color: #dc3545;
+  }
+}

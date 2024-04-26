@@ -1,0 +1,64 @@
+@use '../../global/padding.scss' as *;
+
+// styles/Home.module.scss
+
+// Import stylesheets or variables as needed
+
+.linkContainer {
+  display: grid;
+  justify-content: center;
+
+  h5 {
+    display: grid;
+  }
+}
+
+.homeContainer {
+  // Add any styles for the home container if needed
+  // margin-top: 80px;
+}
+
+.homeContainerAlign {
+  // height: 100vh;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  min-height: 100vh;
+}
+
+.mainContainer {
+  // Add any styles for the main container if needed
+  margin: auto;
+  padding: 5px;
+}
+
+.main {
+  // padding: 5px;
+
+  h3 {
+    text-align: center;
+    // @include margin('xl');
+  }
+
+  h5 {
+    text-align: center;
+    margin-top: -15px;
+  }
+
+  h4 {
+    display: grid;
+  }
+
+  .linkContainer {
+    // Styles for the link container inside main
+  }
+
+  // Add any other styles for the main content
+}
+
+.lockedContainer {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

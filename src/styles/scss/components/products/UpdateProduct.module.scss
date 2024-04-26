@@ -1,0 +1,132 @@
+.updateContainer {
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: 'Arial', sans-serif;
+  width: 600px;
+  margin-top: 100px;
+  margin-bottom: 40px;
+}
+
+.heading {
+  color: #333;
+  text-align: center;
+}
+
+.users-heading {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+}
+
+.user-container {
+  position: relative;
+  overflow: hidden;
+  transition: height 0.5s;
+}
+
+.user-name {
+  font-size: 16px;
+}
+
+.toggle-button {
+  // background-color: #2962ff;
+  background-color: #4caf50;
+  color: white;
+  padding: 8px;
+  cursor: pointer;
+  border: 0px;
+  padding: 10px 10px;
+  // border-radius: 5px;
+}
+
+.toggle-button.close-button {
+  background-color: #f44336;
+}
+
+.updateForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 10px;
+  margin: auto;
+  margin-bottom: 50px;
+}
+
+.formFields {
+  margin-bottom: 10px;
+  margin: 10px auto;
+  width: 250px;
+  display: grid;
+}
+
+.update-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 8px;
+  cursor: pointer;
+  width: 100px;
+  border: 0px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.loading {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.toggle-button.red {
+  background-color: #e74c3c;
+}
+
+.form-fields-second {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  margin: 10px auto;
+  width: 250px;
+}
+
+.product-container {
+  position: relative;
+  overflow: hidden;
+  transition: height 0.5s;
+  margin: auto;
+  width: auto;
+}
+
+.product-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.product-container.product-container {
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  transition: background-color 0.3s ease;
+  flex-direction: column;
+  margin: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+  .updateContainer {
+    max-width: 360px;
+    width: 360px;
+  }
+}
+
+.inputField {
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

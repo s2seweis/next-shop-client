@@ -1,0 +1,58 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "target": "ES5",
+    "module": "ESNext",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "allowJs": false,
+    "jsx": "preserve",
+    "removeComments": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "Bundler",
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    },
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/app/context/AuthContext.tsx",
+    ".next/types/**/*.ts",
+    "src/components/Layout/Admin/routes.ts",
+    "src/app/not-found.tsx",
+    "src/types/next-auth.d.ts"
+, "src/components/Products/UpdateProductComponent.js"  ],
+  "exclude": [
+    "node_modules",
+    ".next"
+  ]
+}

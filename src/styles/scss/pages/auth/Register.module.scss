@@ -1,0 +1,73 @@
+// Register.module.scss
+
+.registerContainer {
+  margin: auto;
+}
+
+.registerForm {
+  width: 300px;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.registerTitle {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.registerInputWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.registerInput {
+  width: 100%;
+  padding: 10px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 5px; // Adjust margin as needed
+  margin-left: 0px;
+  border-radius: 10px;
+  background-color: #f7f7f7;
+  margin-left: -10px;
+}
+
+.registerButton {
+  width: 100%;
+  background-color: #34a853;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  margin-top: 20px; // Adjust margin as needed
+}
+
+.registerButton:hover {
+  background-color: #258cd1;
+}
+
+.goToLogin {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.goToLogin a {
+  color: #333;
+  text-decoration: none;
+}
+
+.goToLogin a:hover {
+  text-decoration: underline;
+}
+
+.registerButton:hover {
+  background-color: #0c7d43; /* Change background color on hover */
+  color: #fff; /* Change text color on hover */
+}

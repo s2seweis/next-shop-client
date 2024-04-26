@@ -1,0 +1,16 @@
+/* styles/Home.module.scss */
+.header {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f5f5f5;
+}
+
+.main {
+  @extend .header; // In case you want .main to inherit styles from .header
+  text-align: center;
+  padding: 2rem;
+}
+
+#installButton {
+  display: none;
+}

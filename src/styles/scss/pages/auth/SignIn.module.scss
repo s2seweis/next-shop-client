@@ -1,0 +1,114 @@
+// SignIn.module.scss
+
+.loginFormContainer {
+  // width: 300px;
+  // padding: 20px;
+  // background-color: #fff;
+  // border-radius: 8px;
+  // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.SignInForm {
+  width: 300px;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.loginFormTitle {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.formField {
+  margin-bottom: 15px;
+}
+
+.loginFormContainer label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.loginFormContainer .inputField {
+  width: 100%;
+  padding: 10px 10px;
+  margin-left: 0px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  border-radius: 10px;
+  margin-left: -10px;
+  background-color: #f7f7f7;
+}
+
+.signInButtonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.signInButton {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.signInCredentials {
+  background-color: #0f9d58;
+  color: #fff;
+  width: 50%;
+}
+
+.signInButtonGoogle {
+  background-color: #fbbc05;
+  color: #fff;
+  width: 50%;
+}
+
+.signInButtonFacebook {
+  background-color: #4285f4;
+  color: #fff;
+  width: 50%;
+}
+
+.signInButtonGithub {
+  background-color: #2b3137;
+  color: #fff;
+  width: 50%;
+}
+
+.goToSignIn {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.goToSignIn a {
+  color: #333;
+  text-decoration: none;
+}
+
+.goToSignIn a:hover {
+  text-decoration: underline;
+}
+
+.signInButton:hover {
+  background-color: #0c7d43; /* Change background color on hover */
+  color: #fff; /* Change text color on hover */
+}
+
+.signInButtonGoogle:hover {
+  background-color: #e68a00; /* Change background color on hover */
+}
+
+.signInButtonFacebook:hover {
+  background-color: #2962ff; /* Change background color on hover */
+}
+
+.signInButtonGithub:hover {
+  background-color: #1e2124; /* Change background color on hover */
+}

@@ -1,0 +1,59 @@
+/* drowDownMenu.module.scss */
+
+.dropdown {
+  // position: relative;
+  position: absolute;
+  display: inline-block;
+  align-items: center;
+  right: 100px;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.menu {
+  position: absolute;
+  top: 52px; /* Adjust the top position as needed */
+  right: 0;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  z-index: 1;
+  min-width: 120px; /* Adjust the minimum width as needed */
+  margin-right: -48px;
+
+  div {
+    padding: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      // background-color: #f0f0f0;
+    }
+  }
+}
+
+.menuLink {
+  color: #333; /* Adjust the text color */
+  text-decoration: none;
+  display: block;
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+
+  svg {
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+}
+
+//

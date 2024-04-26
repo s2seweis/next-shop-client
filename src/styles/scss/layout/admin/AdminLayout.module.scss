@@ -1,0 +1,11 @@
+/* main.module.scss */
+
+/* Local class for body styling */
+.body {
+  margin: 0px !important;
+  margin-top: 90px !important; /* Adjust the value based on your navbar height */
+
+  /* Global typography */
+  font-size: 16px;
+  line-height: 1.5;
+}

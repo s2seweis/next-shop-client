@@ -1,0 +1,35 @@
+// styles.scss
+
+.containerSignIn {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: -10px;
+  
+    p {
+      position: absolute;
+      margin-top: 36px;
+      margin-left: 4px;
+      color: black;
+    }
+  
+    button {
+      background: #ea4335;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      border-radius: 5px; // corrected border-radius syntax
+      padding: 5px 10px;
+      border-radius: 5px; // corrected border-radius syntax
+    }
+  }
+  
+  .buttonSignOut {
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    background: #34a853;
+    padding: 5px 10px;
+    border-radius: 5px; // corrected border-radius syntax
+  }
+  

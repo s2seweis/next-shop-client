@@ -1,0 +1,90 @@
+.userTab {
+    // width: 800px;
+    max-width: 800px;
+    height: 100%;
+    // margin: 0 auto;
+    margin-top: 3rem;
+    // background: white;
+    // background-color: lightgr;
+    // border: 1px solid grey;
+    margin: 100px auto;
+    // justify-content: center;
+  
+    @media (max-width: 350px) {
+      width: 100%;
+      margin-top: 6rem;
+    }
+  }
+
+  .userTabContent {
+    padding: 8px;
+    height: 100%;
+  
+    // @include mobile {
+    //   padding: 0;
+    // }
+  }
+  
+  .userTabNav {
+    // background: white;
+    background-color: white;
+    // background-color: #F9F9F9;
+    // border-bottom: 1px solid grey;
+    // padding: 0 12px;
+    // padding: 0 6px;
+    display: flex;
+    justify-content: center;
+    // border-bottom: 0.1px solid grey;
+    // border: 1px solid grey;
+
+    @media (max-width: 350px) {
+      padding: 0;
+    }
+  }
+  
+  .userTabMenu {
+    padding: 0;
+    margin: 0;
+    position: relative;
+    // bottom: -1px;
+    // background-color: lightgray;
+    border: 1px solid lightgray;
+    border-right: 0px solid lightgray;
+    width: fit-content;
+
+  }
+  
+  .userTabItem {
+    list-style-type: none;
+    color: rgb(0, 0, 0);
+    // color: grey;
+    padding: 8px;
+    font-size: 1rem;
+    // border-bottom: 1px solid transparent;
+    display: inline-block;
+    transition: all .3s ease;
+    // border: 0.1px solid grey;
+    border-right: 0.1px solid grey;
+  
+    &:hover {
+      cursor: pointer;
+      background: white;
+    }
+  }
+  
+  .userTabActive {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    // border-bottom: 0.1px solid white;
+    background: lightcoral;
+    border-radius: 0px 12px 0px 0px;
+    
+  
+    &:hover {
+      cursor: default;
+      background: lightcoral;
+    }
+  }
+  
+  
+  

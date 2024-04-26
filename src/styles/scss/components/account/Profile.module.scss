@@ -1,0 +1,70 @@
+.profileContainer {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  // width: 350px;
+  width: -webkit-fill-available;
+  // margin-top: 80px;
+  // height: 640px;
+}
+
+.profileInfo {
+  margin-top: 10px;
+}
+
+.profileInfo p {
+  margin-bottom: 8px;
+}
+
+.profileInfo strong {
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+
+/* Add more styling as needed */
+
+.roundImageContainer {
+  width: 150px; // Adjust according to your requirement
+  height: 150px; // Adjust according to your requirement
+  border-radius: 50%; // Makes the container round
+  overflow: hidden; // Clips the content outside the container
+  // border: 2px solid #000; // Example border styling
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); // Example box shadow
+  display: flex;
+  margin: auto;
+
+  img {
+    width: 100%; // Ensures the image fills the container
+    height: auto; // Maintains aspect ratio
+    object-fit: scale-down; // Scales the image while maintaining its aspect ratio to cover the entire container
+    // object-fit: cover; // Scales the image while maintaining its aspect ratio to cover the entire container
+  }
+}
+
+.imgTitle {
+  text-align: center;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}

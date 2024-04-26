@@ -1,0 +1,133 @@
+/* sidebar.scss */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  background-color: #333;
+  transition: width 0s ease 0s, left 0s ease 0s, right 0s ease 0s,
+    all 1000ms ease 0s;
+  z-index: 500 !important;
+  border: 0.5px solid lightgray;
+  width: 80px;
+  min-width: 80px;
+}
+
+.open {
+  width: 160px;
+}
+
+.sidebarToggle {
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: #fff;
+  z-index: 100;
+  padding: 5px;
+  align-items: center;
+  display: flex;
+  font-size: xx-large;
+  background-color: #333;
+  height: 77px;
+  display: flex;
+  justify-content: center;
+}
+
+.nav {
+  background: white;
+  height: 90.5%;
+}
+
+.navLinks {
+  margin-top: 90px;
+  font-size: 1.3rem;
+  display: grid;
+  margin-bottom: 15px !important;
+  text-align: left;
+  justify-content: center;
+}
+
+.navLink {
+  border: 1px solid #e3e1d9;
+  // border: 1px solid rgb(226, 223, 223);
+  background-color: #efecec;
+  // background-color: rgb(250, 247, 247);
+  border-radius: 0px 0px 0px 0px;
+  // min-width: 126px;
+  margin-bottom: 5px;
+  min-height: 30px;
+
+  &.active {
+    color: #333a73; /* Menu item color */
+    font-size: 1.3rem;
+  }
+}
+
+.submenu {
+  display: grid;
+}
+
+// .submenuLink {
+//   cursor: pointer;
+//   text-decoration: none;
+
+//   &.active {
+//     color: #387ADF; /* Submenu item color */
+//     font-weight: bold;
+//     text-decoration: none !important;
+//     background-color: rgb(233, 221, 221);
+//     border: 1px solid rgb(211, 204, 204);
+//     display: flex;
+//   }
+// }
+
+.submenuLink {
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease; /* Smooth transition effect on hover */
+
+  &:hover {
+    background-color: #e0e0e0; /* Change the background color on hover */
+  }
+
+  &.active {
+    color: #2b60af;
+    // color: #387ADF;
+    font-weight: bold;
+    text-decoration: none !important;
+    background-color: #e3e1d9;
+    // background-color: rgb(233, 221, 221);
+    // border: 1px solid rgb(211, 204, 204);
+    border: 1px solid #6e7070;
+    display: flex;
+    height: 30px;
+    align-items: center;
+  }
+}
+
+.sidebar a {
+  color: black !important;
+  text-decoration: none;
+  height: 30px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  // right: -55%; /* Initially positioned off-screen to the right */
+  right: 55%; /* Initially positioned off-screen to the right */
+  width: 55%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3); /* Semi-transparent black overlay */
+  z-index: 499; /* Below the sidebar */
+  transition: right 0.3s ease-in-out; /* Use right instead of right */
+  opacity: 0; /* Initially fully transparent */
+  visibility: hidden; /* Initially hidden */
+  display: none;
+}
+
+.open .overlay {
+  right: 0; /* Move the overlay to the right edge when the sidebar is open */
+  opacity: 1; /* Make the overlay fully opaque */
+  visibility: visible; /* Make the overlay visible */
+}

@@ -1,0 +1,44 @@
+// Variables for spacing
+$spacing-unit: 8px; // Adjust this based on your design system
+
+// Margin values
+$margin-values: (
+  'none': 0,
+  'xs': #{0.25 * $spacing-unit},
+  'sm': #{0.5 * $spacing-unit},
+  'md': $spacing-unit,
+  'lg': #{2 * $spacing-unit},
+  'xl': #{3 * $spacing-unit}
+);
+
+// Padding values
+$padding-values: (
+  'none': 0,
+  'xs': #{0.25 * $spacing-unit},
+  'sm': #{0.5 * $spacing-unit},
+  'md': $spacing-unit,
+  'lg': #{2 * $spacing-unit},
+  'xl': #{3 * $spacing-unit}
+);
+
+// Mixin to apply margins
+@mixin margin($top: 'none', $right: $top, $bottom: $top, $left: $right) {
+  margin-top: map-get($margin-values, $top);
+  margin-right: map-get($margin-values, $right);
+  margin-bottom: map-get($margin-values, $bottom);
+  margin-left: map-get($margin-values, $left);
+}
+
+// Mixin to apply paddings
+@mixin padding($top: 'none', $right: $top, $bottom: $top, $left: $right) {
+  padding-top: map-get($padding-values, $top);
+  padding-right: map-get($padding-values, $right);
+  padding-bottom: map-get($padding-values, $bottom);
+  padding-left: map-get($padding-values, $left);
+}
+
+// Example usage
+.my-element {
+  @include margin('sm'); // Apply small margin to all sides
+  @include padding('md', 'lg'); // Apply medium padding on top/bottom, large padding on right/left
+}

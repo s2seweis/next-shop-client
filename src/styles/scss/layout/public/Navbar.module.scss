@@ -1,0 +1,141 @@
+// styles/layout/navbar.module.scss
+
+.navbar {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  padding: 5px;
+  // padding: 10px;
+  z-index: 1000;
+  transform: translateY(0);
+  transition: transform 0.3s ease-in-out;
+
+  &.hidden {
+    transform: translateY(-100%); // Slide up to hide the navbar
+  }
+
+  .navList {
+    list-style-type: none;
+    display: flex;
+  }
+
+  .navItem {
+    display: flex;
+  }
+
+  @media screen and (max-width: 600px) {
+    .navItem {
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .navLink {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem;
+  }
+
+  .linkContainer {
+    text-decoration: none !important;
+  }
+
+  .navLink:hover {
+    background-color: #555;
+  }
+
+  .sidebarToggle {
+    display: none;
+    font-size: 15px;
+    padding: 5px;
+    height: 38px;
+    width: 38px;
+    justify-content: center;
+    font-size: 1.8rem;
+    border: 1px solid white;
+    margin-left: 15px;
+
+    @media (max-width: 600px) {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .logoMobile {
+    display: none;
+    font-size: 15px;
+    padding: 5px;
+    min-height: 38px;
+
+    @media (max-width: 600px) {
+      display: block;
+    }
+  }
+
+  .menu1 {
+    display: flex;
+
+    @media (max-width: 600px) {
+      display: none;
+    }
+  }
+
+  .select {
+    width: 200px;
+    margin-left: auto;
+    color: black;
+    margin-right: 50px;
+
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
+  }
+
+  .select__indicator {
+    color: #333;
+  }
+
+  .select__menu {
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .select__option {
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .select__option--is-selected {
+    color: red !important;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.navLinks {
+  display: flex;
+  gap: 15px;
+  font-size: 1.2rem;
+  right: 200px;
+  position: absolute;
+}
+
+.logo {
+  display: flex;
+  margin: 7px 15px;
+}
+
+.active {
+  color: white;
+}
