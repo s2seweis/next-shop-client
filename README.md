@@ -1,8 +1,14 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+<div align="center">
+<img src="assets/lighthouse.png" alt="Lighthouse-Result">
+</div>
+
 ## Demo
 
-You can check [demo](https://next-typescript-pwa-starter.vercel.app/)
+You can check out the boilerplate  [demo](https://next-typescript-pwa-starter.vercel.app/)
+
+You can check out the shop  [shop](https://thriving-cajeta-47cc44.netlify.app/)
 
 ### Frontend
 
