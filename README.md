@@ -8,7 +8,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 You can check out the boilerplate  [demo](https://next-typescript-pwa-starter.vercel.app/)
 
-You can check out the shop  [shop](https://thriving-cajeta-47cc44.netlify.app/)
+You can check out the shop [demo](https://thriving-cajeta-47cc44.netlify.app/)
 
 ### Frontend
 
