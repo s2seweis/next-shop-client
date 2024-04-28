@@ -1,7 +1,12 @@
 import type { NextAuthOptions, User, Profile } from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
+import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
+// ### - Test
+// require('dotenv').config();
+const loginRoute = process.env.DEPLOYED_ROUTE || 'http://localhost:3005/login'; 
+// ###
 
 interface ProfileWithDummyData extends Profile {
   dummyData?: { userId: string };
@@ -12,6 +17,11 @@ export const options: NextAuthOptions = {
     GitHubProvider({
       clientId: process.env.GITHUB_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
+    }),
+
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
     }),
 
     CredentialsProvider({
@@ -30,7 +40,8 @@ export const options: NextAuthOptions = {
 
         try {
           // Make Axios request to login route
-          const response = await axios.post('https://next-shop-server-aafff1b333cc.herokuapp.com/login', {
+          // const response = await axios.post('https://next-shop-server-aafff1b333cc.herokuapp.com/login', {
+            const response = await axios.post(`${loginRoute}/login`, {
           // const response = await axios.post('http://localhost:3005/login', {
             email,
             password,

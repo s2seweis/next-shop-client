@@ -115,4 +115,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - git pull
 ```
 
-Copyright © 2021 by Danang Eko Alfianto
+Copyright © 2024 by Sebasian Weissenborn

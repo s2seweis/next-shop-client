@@ -46,6 +46,10 @@ const SignIn = () => {
     await signIn('github', { callbackUrl: '/' });
   };
 
+  const handleGoogleSignIn = async () => {
+    await signIn('google', { callbackUrl: '/' });
+  };
+
   return (
     <div
       style={{ display: 'flex', height: '100vh', alignItems: 'center' }}
@@ -90,10 +94,10 @@ const SignIn = () => {
           </div>
           <div className={styles.signInButtonContainer}>
             <Button
-              // onClick={onSubmit}
+              onClick={handleGoogleSignIn}
               className={`${styles.signInButtonGoogle} ${styles.signInButton}`}
             >
-              SIGN IN with Google
+              SIGN IN with Google 1
             </Button>
             <Button
               // onClick={handleGitHubSignIn}
