@@ -50,6 +50,10 @@ const SignIn = () => {
     await signIn('google', { callbackUrl: '/' });
   };
 
+  const handleFacebookSignIn = async () => {
+    await signIn('facebook', { callbackUrl: '/' });
+  };
+
   return (
     <div
       style={{ display: 'flex', height: '100vh', alignItems: 'center' }}
@@ -97,10 +101,10 @@ const SignIn = () => {
               onClick={handleGoogleSignIn}
               className={`${styles.signInButtonGoogle} ${styles.signInButton}`}
             >
-              SIGN IN with Google 1
+              SIGN IN with Google 
             </Button>
             <Button
-              // onClick={handleGitHubSignIn}
+              onClick={handleFacebookSignIn}
               className={`${styles.signInButtonFacebook} ${styles.signInButton}`}
             >
               SIGN IN with Facebook

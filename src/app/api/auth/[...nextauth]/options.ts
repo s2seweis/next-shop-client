@@ -3,10 +3,10 @@ import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
-// ### - Test
-// require('dotenv').config();
-const loginRoute = process.env.DEPLOYED_ROUTE || 'http://localhost:3005/login'; 
-// ###
+import FacebookProvider from "next-auth/providers/facebook";
+
+const loginRouteLocal = 'http://localhost:3005'; 
+// const loginRouteDeployed = 'https://next-shop-server-aafff1b333cc.herokuapp.com'; 
 
 interface ProfileWithDummyData extends Profile {
   dummyData?: { userId: string };
@@ -22,6 +22,11 @@ export const options: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
+    }),
+
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID as string,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string
     }),
 
     CredentialsProvider({
@@ -40,9 +45,7 @@ export const options: NextAuthOptions = {
 
         try {
           // Make Axios request to login route
-          // const response = await axios.post('https://next-shop-server-aafff1b333cc.herokuapp.com/login', {
-            const response = await axios.post(`${loginRoute}/login`, {
-          // const response = await axios.post('http://localhost:3005/login', {
+            const response = await axios.post(`${loginRouteLocal}/login`, {
             email,
             password,
           });
@@ -70,10 +73,7 @@ export const options: NextAuthOptions = {
 
   callbacks: {
     async jwt({ token, user, account, profile }) {
-      // console.log("line:2", user);
-      // console.log("line:3", account);
-      // console.log("line:4", profile);
-
+     
       if (account) {
         if ('userid' in user) {
           token.userId = user.userid;
@@ -90,8 +90,6 @@ export const options: NextAuthOptions = {
     },
 
     async session({ session, token }) {
-      // console.log("line:50", session);
-      // console.log("line:51", token);
 
       if (token && session.user) {
         // Define the type of session.user
@@ -121,8 +119,6 @@ export const options: NextAuthOptions = {
 
     // async signIn({ profile, email }) {
     async signIn({ profile }) {
-      // console.log("line:600", profile);
-      // console.log("line:601", email);
     
       try {
         // Check if profile exists before accessing its properties
