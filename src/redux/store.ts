@@ -3,13 +3,15 @@ import profileReducer from '@/src/redux/slices/profileSlice';
 import preferenceReducer from '@/src/redux/slices/userPreferenceSlice';
 import productsReducer from '@/src/redux/slices/productSlice';
 import counterReducer from '@/src/redux/slices/counterSlice';
+import resetReducer from '@/src/redux/slices/resetSlice';
 
 export const store = configureStore({
   reducer: {
     profile: profileReducer,
     preference: preferenceReducer,
     products: productsReducer,
-    counter: counterReducer
+    counter: counterReducer,
+    reset: resetReducer
   },
 });
 

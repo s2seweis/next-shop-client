@@ -23,7 +23,7 @@ interface UserWithUserId extends User {
 
 const Home: React.FC = () => {
   const { data: session } = useSession(); // Retrieve session information  
-  console.log("line:100", session);
+  // console.log("line:100", session);
   
   const dispatch = useAppDispatch();
   const status = useAppSelector((state: RootState) => state.profile.status);
@@ -80,6 +80,9 @@ const Home: React.FC = () => {
                 Test Component
                 <Link href="/user/Account">User Account</Link>
                 <Link href="/test/Redux">Counter</Link>
+                <Link href="/reset/RequestReset">Request New Password</Link>
+                <Link href="/reset/ConfirmNewPassword">Confirm New Password</Link>
+                <Link href="/reset/ResetMessage">Reset Message</Link>
               </h4>
             </div>
           </main>
