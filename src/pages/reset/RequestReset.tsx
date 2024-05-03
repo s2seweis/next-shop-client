@@ -3,6 +3,7 @@ import { Row, Col, Input, Form } from 'antd';
 import Loader from '@/src/components/Loader/Loader';
 import { useAppDispatch } from '@/src/redux/hooks';
 import {requestResetPassword} from '@/src/redux/slices/resetSlice'
+import IsAuthPublic from '@/src/utils/authHocs/isAuthPublic';
 
 interface ForgotPasswordProps { }
 
@@ -57,4 +58,4 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
     );
 }
 
-export default ForgotPassword;
+export default IsAuthPublic(ForgotPassword);

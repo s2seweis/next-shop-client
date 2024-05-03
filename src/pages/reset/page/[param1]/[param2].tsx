@@ -1,26 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Col, Row, Form, Input } from 'antd';
 import Loader from '@/src/components/Loader/Loader';
-import { useParams } from 'react-router-dom';
-// import { useRouter } from 'next/router';
+import IsAuthPublic from '@/src/utils/authHocs/isAuthPublic';
+import {resetPassword} from '@/src/redux/slices/resetSlice'
+import { useAppDispatch } from '@/src/redux/hooks';
 
-interface PasswordResetProps { }
+interface PasswordResetProps {}
 
 const PasswordReset: React.FC<PasswordResetProps> = () => {
-    // const router = useRouter();
-    // const { slug } = router.query;
+    const dispatch = useAppDispatch();
+    const [token, setToken] = useState<string>('');
+    console.log("line:100", token);
+    
+    const [userId, setUserId] = useState<string>('');
+    console.log("line:200", userId);
     const [loading] = useState<boolean>(false);
-    const { token, id } = useParams<{ token: string; id: string }>();
-    const initialValues = { token: token, userId: id };
-
+    
+    useEffect(() => {
+        const url = window.location.href;
+        const parts = url.split('/');
+        const tokenIndex = parts.indexOf('reset') + 2;
+        const userIdIndex = tokenIndex + 1;
+        const extractedToken = parts[tokenIndex];
+        const extractedUserId = parts[userIdIndex];
+        
+        setToken(extractedToken);
+        setUserId(extractedUserId);
+    }, []);
+    
+    useEffect(() => {
+        // Update form fields when token and userId change
+        form.setFieldsValue({ token, userId });
+    }, [token, userId]);
+    
+    const [form] = Form.useForm();
+    
     const onFinish = (values: any) => {
-        console.log("line:100", values);
-        // dispatch(resetPassword(values));
+        console.log("line:300", values);
+        dispatch(resetPassword(values));
+        // Dispatch reset password action
     };
-
+    
     return (
         <div className='reset' style={{ width: "fit-content", height: "100vh", display: "flex", justifyContent: "center", margin: "auto" }}>
-
             <div style={{ margin: 'auto', padding: '20px', width: 'fit-content', borderRadius: '25px' }}>
                 <div style={{ margin: '15px 0px 15px 15px', display: 'flex' }}>
                     <a href='javascript:history.back()'>Go Back</a>
@@ -28,39 +50,34 @@ const PasswordReset: React.FC<PasswordResetProps> = () => {
 
                 {loading && <Loader />}
                 <Row gutter={16} className='d-flex aligin-items-center' style={{ justifyContent: 'center' }} >
-                    <Col
-                        // lg={12}
-                        // sm={20}
-                        // xs={22}
-                        // className="p-2"
-                    >
+                    <Col>
                         <Form
-                            initialValues={initialValues}
+                            form={form}
                             className="form"
                             layout="vertical"
                             onFinish={onFinish}
-                            style={{ background: "aliceblue", padding: "20px", borderRadius: "10px", width:"350px" }}
+                            style={{ background: "aliceblue", padding: "20px", borderRadius: "10px", width: "350px" }}
                         >
                             <h3>Reset Password</h3>
                             <hr />
                             <Form.Item
                                 name="token"
                                 label="Token"
-                                rules={[{ required: true }]}
+                                rules={[{ required: true, message: 'Please input your token!' }]}
                             >
                                 <Input disabled />
                             </Form.Item>
                             <Form.Item
                                 name="userId"
                                 label="User ID"
-                                rules={[{ required: true }]}
+                                rules={[{ required: true, message: 'Please input your user ID!' }]}
                             >
                                 <Input disabled />
                             </Form.Item>
                             <Form.Item
                                 name="password"
                                 label="New Password"
-                                rules={[{ required: true }]}
+                                rules={[{ required: true, message: 'Please input your new password!' }]}
                             >
                                 <Input />
                             </Form.Item>
@@ -71,12 +88,8 @@ const PasswordReset: React.FC<PasswordResetProps> = () => {
                     </Col>
                 </Row>
             </div>
-
         </div>
     );
 }
 
-export default PasswordReset;
-
-
-// in next.js i get for this url an error: http://localhost:3000/reset/ConfirmNewPassword/bd3476544951cca5799a73ac2bad33e85203251c8f83d1aad34ea3590223293e/39 , 404 page not found , but this works: http://localhost:3000/reset/ConfirmNewPassword can you fix it so i can the params
+export default IsAuthPublic(PasswordReset);

@@ -8,8 +8,8 @@ const ResetMessage: React.FC = () => {
       <div style={{ margin: '15px 0px 0px 15px', display: 'flex' }}>
         <a href='javascript:history.back()'>Go Back</a>
       </div>
-        <h2 style={{ padding: '10px' }}>Open the Reset Link</h2>
-        <h4>Go to your mailbox and open the reset-link!</h4>
+        <h2 style={{ padding: '10px' }}>You changed your password succesful!"</h2>
+        <h4>Go back to the Sign In Page</h4>
       </div>
     </div>
   );

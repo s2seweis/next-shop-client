@@ -33,11 +33,13 @@ export const requestResetPassword = createAsyncThunk(
 export const resetPassword = createAsyncThunk(
   'reset/resetPassword',
   async (reqObj: any) => {
+    console.log("line:500", reqObj);
+    
     try {
       const response = await axios.post('http://localhost:3005/resetPassword', reqObj);
       message.success('The Password changed successfully !!');
       setTimeout(() => {
-        window.location.href = '/login';
+        window.location.href = '/reset/SuccessMessage';
       }, 500);
       return response.data;
     } catch (error) {
