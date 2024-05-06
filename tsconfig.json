@@ -50,7 +50,7 @@
     "src/components/Layout/Admin/routes.ts",
     "src/app/not-found.tsx",
     "src/types/next-auth.d.ts"
-, "src/components/Products/UpdateProductComponent.js"  ],
+, "src/components/Products/UpdateProductComponent.js", "src/utils/firebase/firebaseInit.ts", "src/components/Notifications/Notifications.js", "src/components/Notifications/ReactNotification.js"  ],
   "exclude": [
     "node_modules",
     ".next"
