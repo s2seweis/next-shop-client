@@ -8,36 +8,15 @@ import { ProSidebarProvider } from 'react-pro-sidebar';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { store } from '@/src/redux/store';
 import { Provider } from 'react-redux';
-import { onMessageListener } from '../utils/firebase/firebaseInit';
-import Notifications from '../components/Notifications/Notifications.js';
-import ReactNotificationComponent from '../components/Notifications/ReactNotification.js';
-// import { getMessaging, onMessage } from 'firebase/messaging';
+import { generateToken, messaging } from '../utils/firebase/firebaseInit';
+import { onMessage } from 'firebase/messaging';
+import toast, {Toaster} from 'react-hot-toast';
 
 interface AppProps {
   Component: React.ComponentType<any>;
 }
 
 const App: React.FC<AppProps> = ({ Component }) => {
-  const [show, setShow] = useState(false);
-  console.log('line:100', show);
-
-  const [notification, setNotification] = useState({ title: '', body: '' });
-  console.log('line:101', notification);
-
-  onMessageListener()
-    .then((payload) => {
-      console.log("line:555", payload);
-      
-      setShow(true);
-      // the error is here
-      setNotification({
-        title: payload.notification.title,
-        body: payload.notification.body,
-      });
-      // console.log(payload);
-    })
-    .catch((err) => console.log('failed: ', err));
-
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -47,6 +26,15 @@ const App: React.FC<AppProps> = ({ Component }) => {
     };
 
     fetchData();
+  }, []);
+  
+  useEffect(() => {
+    generateToken();
+    onMessage(messaging, (payload) => {
+      console.log(payload);
+      toast(payload.notification.body);
+      
+    })
   }, []);
 
   // ###
@@ -68,15 +56,7 @@ const App: React.FC<AppProps> = ({ Component }) => {
           ) : (
             <Router>
               <Component />
-              <Notifications/>
-              {show ? (
-                <ReactNotificationComponent
-                  title={notification.title}
-                  body={notification.body}
-                />
-              ) : (
-                <></>
-              )}
+              <Toaster position='top-right'/>
             </Router>
           )}
         </ProSidebarProvider>
