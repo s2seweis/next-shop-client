@@ -26,12 +26,15 @@ const App: React.FC<AppProps> = ({ Component }) => {
 
   onMessageListener()
     .then((payload) => {
+      console.log("line:555", payload);
+      
       setShow(true);
+      // the error is here
       setNotification({
         title: payload.notification.title,
         body: payload.notification.body,
       });
-      console.log(payload);
+      // console.log(payload);
     })
     .catch((err) => console.log('failed: ', err));
 
@@ -65,6 +68,7 @@ const App: React.FC<AppProps> = ({ Component }) => {
           ) : (
             <Router>
               <Component />
+              <Notifications/>
               {show ? (
                 <ReactNotificationComponent
                   title={notification.title}
@@ -73,7 +77,6 @@ const App: React.FC<AppProps> = ({ Component }) => {
               ) : (
                 <></>
               )}
-              <Notifications/>
             </Router>
           )}
         </ProSidebarProvider>

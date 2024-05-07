@@ -12,13 +12,13 @@ interface FirebaseConfig {
 }
 
 const firebaseConfig: FirebaseConfig = {
-  apiKey: "dummy_api_key",
-  authDomain: "dummy-project.firebaseapp.com",
-  projectId: "dummy-project",
-  storageBucket: "dummy-project.appspot.com",
-  messagingSenderId: "1234567890",
-  appId: "1:1234567890:web:abc123def456",
-  measurementId: "G-ABCDEF1234"
+  apiKey: "AIzaSyAzPddnPIkhCeeO-UaAPkR48cW4ZXAS9qE",
+  authDomain: "next-js-client.firebaseapp.com",
+  projectId: "next-js-client",
+  storageBucket: "next-js-client.appspot.com",
+  messagingSenderId: "916052246117",
+  appId: "1:916052246117:web:f5e41caf3aea8ffe8b108c",
+  measurementId: "G-SWFC6R7ME5"
 };
 
 // Initialize Firebase
@@ -47,8 +47,10 @@ export const getToken = async (setTokenFound: (tokenFound: boolean) => void): Pr
         vapidKey: publicKey,
       });
       setTokenFound(!!currentToken); // Set tokenFound based on whether currentToken is truthy
+      // console.log("line:999", currentToken);
+      
     } else {
-      console.log('Firebase messaging not initialized.');
+      console.log('Firebase messaging not initialized -1.');
     }
   } catch (error) {
     console.log('An error occurred while retrieving token. ', error);
@@ -64,7 +66,7 @@ export const onMessageListener = (): Promise<any> => {
         resolve(payload);
       });
     } else {
-      console.log('Firebase messaging not initialized.');
+      console.log('Firebase messaging not initialized -2.');
       resolve(null);
     }
   });

@@ -32,8 +32,8 @@ messaging.onBackgroundMessage(function (payload) {
     };
 
     // eslint-disable-next-line no-restricted-globals
-    // return self.registration.showNotification(
-    //     notificationTitle,
-    //     notificationOptions
-    // );
+    return self.registration.showNotification(
+        notificationTitle,
+        notificationOptions
+    );
 });
