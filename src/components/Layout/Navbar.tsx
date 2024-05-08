@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaBell } from 'react-icons/fa';
 import { SiWolfram } from 'react-icons/si';
 import styles from '../../styles/scss/layout/public/Navbar.module.scss';
 import { useSidebarContext } from '../../utils/context/SidebarContext';
 import Link from 'next/link';
 import DropdownMenu from '../DropdownMenu/DropDownMenu';
+// ###
+import DropdownNotification from '../Notifications/DropdownNotification';
+// ###
+// import NotificationComponent from '../NotificationComponent'; // Import the NotificationComponent
 
 const options = [
   { value: '', label: 'Home' },
@@ -101,6 +105,10 @@ const Navbar = () => {
               </div>
             ))}
           </div>
+          <div style={{ alignItems: 'center', display: 'flex' }}>
+            {/* <FaBell /> */}
+            {/* <DropdownNotification /> */}
+          </div>
           <div style={{ alignItems: 'center', display: 'flex' }}></div>
           <DropdownMenu />
         </nav>
@@ -115,6 +123,7 @@ const Navbar = () => {
         }}
       >
         <DropdownMenu />
+        <DropdownNotification />
       </div>
     </nav>
   );

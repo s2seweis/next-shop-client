@@ -4,6 +4,7 @@ import preferenceReducer from '@/src/redux/slices/userPreferenceSlice';
 import productsReducer from '@/src/redux/slices/productSlice';
 import counterReducer from '@/src/redux/slices/counterSlice';
 import resetReducer from '@/src/redux/slices/resetSlice';
+import notificationReducer from '@/src/redux/slices/notificationSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
     preference: preferenceReducer,
     products: productsReducer,
     counter: counterReducer,
-    reset: resetReducer
+    reset: resetReducer,
+    notification: notificationReducer
   },
 });
 

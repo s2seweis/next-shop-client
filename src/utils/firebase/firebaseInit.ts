@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { getMessaging, getToken } from 'firebase/messaging';
+import { Messaging, getMessaging, getToken } from 'firebase/messaging';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAzPddnPIkhCeeO-UaAPkR48cW4ZXAS9qE',
@@ -12,7 +12,7 @@ const firebaseConfig = {
   measurementId: 'G-SWFC6R7ME5',
 };
 
-let messaging = null;
+let messaging: Messaging | null = null;
 
 if (typeof window !== 'undefined') {
   const app = initializeApp(firebaseConfig);
@@ -24,13 +24,13 @@ export { messaging }; // Export the messaging instance
 export const generateToken = async () => {
   if (typeof window !== 'undefined') {
     const permission = await Notification.requestPermission();
-    console.log('Notification permission:', permission);
+    // console.log('Notification permission:', permission);
 
     if (permission === 'granted' && messaging) {
       const token = await getToken(messaging, {
         vapidKey: '',
       });
-      console.log('Firebase Messaging token:', token);
+      // console.log('Firebase Messaging token:', token);
     }
   } else {
     console.warn('generateToken is only executed in the browser environment.');
