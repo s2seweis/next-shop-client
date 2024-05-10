@@ -28,9 +28,9 @@ export const generateToken = async () => {
 
     if (permission === 'granted' && messaging) {
       const token = await getToken(messaging, {
-        vapidKey: '',
+        vapidKey: 'BLbNFs5G-dMSMk1dMHh0Sb8c5x95il0jZjoSgndS4piIaoufvxcONwrqLaSVkPCCmAXAlxdVl7K6KwxxvcSszLM',
       });
-      // console.log('Firebase Messaging token:', token);
+      console.log('Firebase Messaging token:', token);
     }
   } else {
     console.warn('generateToken is only executed in the browser environment.');

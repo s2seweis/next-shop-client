@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaBars, FaTimes, FaBell } from 'react-icons/fa';
+import { FaBars, FaTimes } from 'react-icons/fa';
 import { SiWolfram } from 'react-icons/si';
 import styles from '../../styles/scss/layout/public/Navbar.module.scss';
 import { useSidebarContext } from '../../utils/context/SidebarContext';

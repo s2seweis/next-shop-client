@@ -1,85 +1,38 @@
-// // _app.tsx
+// // Import the functions you need from the SDKs you need
+// import { initializeApp } from 'firebase/app';
+// import { Messaging, getMessaging, getToken } from 'firebase/messaging';
 
-// import React, { useState, useEffect } from 'react';
-// import ProvidersWrapper from '../utils/context/AuthProviderMerged';
-// import Loader from '../components/Loader/Loader';
-// import '../styles/scss/global/global.scss';
-// import { ProSidebarProvider } from 'react-pro-sidebar';
-// import { BrowserRouter as Router } from 'react-router-dom';
-// import { store } from '@/src/redux/store';
-// import { Provider } from 'react-redux';
-// import { onMessageListener } from '../utils/firebase/firebaseInit';
-// import Notifications from '../components/Notifications/Notifications.js';
-// import ReactNotificationComponent from '../components/Notifications/ReactNotification.js';
-// // import { getMessaging, onMessage } from 'firebase/messaging';
-
-// interface AppProps {
-//   Component: React.ComponentType<any>;
-// }
-
-// const App: React.FC<AppProps> = ({ Component }) => {
-//   const [show, setShow] = useState(false);
-//   console.log('line:100', show);
-
-//   const [notification, setNotification] = useState({ title: '', body: '' });
-//   console.log('line:101', notification);
-
-//   onMessageListener()
-//     .then((payload) => {
-//       setShow(true);
-//       setNotification({
-//         title: payload.notification.title,
-//         body: payload.notification.body,
-//       });
-//       console.log(payload);
-//     })
-//     .catch((err) => console.log('failed: ', err));
-
-//   const [loading, setLoading] = useState<boolean>(true);
-
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       await new Promise((resolve) => setTimeout(resolve, 1000));
-//       setLoading(false);
-//     };
-
-//     fetchData();
-//   }, []);
-
-//   // ###
-//   useEffect(() => {
-//     if ('serviceWorker' in navigator) {
-//       navigator.serviceWorker
-//         .register('/service-worker.js')
-//         .then((registration) => console.log('scope is: ', registration.scope));
-//     }
-//   }, []);
-//   // ###
-
-//   return (
-//     <Provider store={store}>
-//       <ProvidersWrapper>
-//         <ProSidebarProvider>
-//           {loading ? (
-//             <Loader />
-//           ) : (
-//             <Router>
-//               <Component />
-//               {show ? (
-//                 <ReactNotificationComponent
-//                   title={notification.title}
-//                   body={notification.body}
-//                 />
-//               ) : (
-//                 <></>
-//               )}
-//               <Notifications/>
-//             </Router>
-//           )}
-//         </ProSidebarProvider>
-//       </ProvidersWrapper>
-//     </Provider>
-//   );
+// const firebaseConfig = {
+//   apiKey: 'AIzaSyAzPddnPIkhCeeO-UaAPkR48cW4ZXAS9qE',
+//   authDomain: 'next-js-client.firebaseapp.com',
+//   projectId: 'next-js-client',
+//   storageBucket: 'next-js-client.appspot.com',
+//   messagingSenderId: '916052246117',
+//   appId: '1:916052246117:web:f5e41caf3aea8ffe8b108c',
+//   measurementId: 'G-SWFC6R7ME5',
 // };
 
-// export default App;
+// let messaging: Messaging | null = null;
+
+// if (typeof window !== 'undefined') {
+//   const app = initializeApp(firebaseConfig);
+//   messaging = getMessaging(app);
+// }
+
+// export { messaging }; // Export the messaging instance
+
+// export const generateToken = async () => {
+//   if (typeof window !== 'undefined') {
+//     const permission = await Notification.requestPermission();
+//     // console.log('Notification permission:', permission);
+
+//     if (permission === 'granted' && messaging) {
+//       const token = await getToken(messaging, {
+//         vapidKey: 'BLbNFs5G-dMSMk1dMHh0Sb8c5x95il0jZjoSgndS4piIaoufvxcONwrqLaSVkPCCmAXAlxdVl7K6KwxxvcSszLM',
+//       });
+//       console.log('Firebase Messaging token:', token);
+//     }
+//   } else {
+//     console.warn('generateToken is only executed in the browser environment.');
+//   }
+// };

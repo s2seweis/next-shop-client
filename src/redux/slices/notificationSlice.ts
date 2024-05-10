@@ -1,10 +1,14 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { Key } from 'react';
 
 interface Notification {
+    id: Key | null | undefined;
+    createdAt: string | number | Date;
     messageId: string;
     title: string;
     body: string;
+    read: boolean
     // Add any other properties you need
 }
 

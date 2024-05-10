@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import ProvidersWrapper from '../utils/context/AuthProviderMerged';
 import Loader from '../components/Loader/Loader';
-import '../styles/scss/global/global.scss';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { store } from '@/src/redux/store';
 import { Provider } from 'react-redux';
 import { generateToken, messaging } from '../utils/firebase/firebaseInit';
-import { onMessage } from 'firebase/messaging';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { showNotification } from '../components/Notifications/toatNotifications';
+import { showNotification } from '../components/Notifications/toastNotifications';
 import axios from 'axios'; // Import Axios
+import { v4 as uuidv4 } from 'uuid'; // Import uuid for generating unique IDs
+import { onMessage } from 'firebase/messaging';
 
 interface AppProps {
   Component: React.ComponentType<any>;
@@ -19,8 +19,6 @@ interface AppProps {
 
 const App: React.FC<AppProps> = ({ Component }) => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [newMessageArrived, setNewMessageArrived] = useState<boolean>(false); // State to trigger re-render
-  const [key, setKey] = useState<number>(0); // Key prop to trigger re-render
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,52 +31,105 @@ const App: React.FC<AppProps> = ({ Component }) => {
 
   useEffect(() => {
     generateToken();
+
+    // ### not needed => to receive broadcast
+    let broadcastChannel: BroadcastChannel;
     if (messaging) {
-      onMessage(messaging, async (payload) => { // Make the callback function async
-        console.log(payload);
-        if (payload.notification && payload.messageId) { // Check if both notification and messageId are available
-          showNotification(payload.notification.title || '', payload.notification.body || '');
+      // Set up a BroadcastChannel to receive background messages
+      broadcastChannel = new BroadcastChannel('background-message');
+      let messageIdCache = ''; // Cache for messageId
+
+      const handleMessage = async (event: { data: any }) => {
+        const payload = event.data;
+        console.log('Received payload from BroadcastChannel:', payload);
+
+        if (payload.notification) {
+          const messageId = payload.messageId || messageIdCache || uuidv4(); // Use cached messageId or generate a new one
+          messageIdCache = messageId; // Update messageId cache
+
+          showNotification(
+            payload.notification.title || '',
+            payload.notification.body || '',
+          );
+
+          try {
+            // Make a fetch call to send the notification data to the server
+            const requestData = {
+              title: payload.notification.title,
+              body: payload.notification.body,
+              messageId: messageId,
+            };
+
+            await axios.post('http://localhost:3005/notification', requestData);
+            location.reload(); // This reloads the current URL
+          } catch (error) {
+            console.error('Failed to send notification data:', error);
+          }
+        }
+      };
+
+      broadcastChannel.onmessage = handleMessage;
+      // ### not needed <=
+
+      // Listen for Firebase messaging events
+      onMessage(messaging, async (payload) => {
+        console.log('Received Firebase message:', payload);
+
+        const messageId = payload.messageId || messageIdCache || uuidv4(); // Use cached messageId or generate a new one
+        messageIdCache = messageId; // Update messageId cache
+
+        if (payload.notification && payload.messageId) {
+          showNotification(
+            payload.notification.title || '',
+            payload.notification.body || '',
+          );
+
           try {
             // Make an Axios call to send the notification data to the server
-            await axios.post('http://localhost:3005/notification', {
-              title: payload.notification.title || '',
-              body: payload.notification.body || '',
-              messageId: payload.messageId || ''
-            });
+            const requestData = {
+              title: payload.notification.title,
+              body: payload.notification.body,
+              messageId: payload.messageId || messageId,
+            };
+
+            await axios.post('http://localhost:3005/notification', requestData);
+            location.reload(); // This reloads the current URL
           } catch (error) {
-            console.error('Failed to send notification:', error);
+            console.error('Failed to send notification data:', error);
           }
-          // Trigger re-render when a new message arrives
-          setNewMessageArrived(true);
         }
       });
     }
+
+    // Always return a cleanup function, even if it does nothing
+    return () => {
+      if (broadcastChannel) {
+        broadcastChannel.close();
+      }
+      // location.reload(); // This reloads the current URL
+    };
   }, []);
 
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/service-worker.js')
-        .then((registration) => console.log('scope is: ', registration.scope));
+        .then((registration) => {
+          console.log('Service worker registered:', registration);
+        });
     }
   }, []);
-
-  useEffect(() => {
-    // Here, you can perform any action that needs to be taken when newMessageArrived changes
-    // For example, you can increment the key value to trigger re-render
-    setKey(prevKey => prevKey + 1);
-  }, [newMessageArrived]);
 
   return (
     <Provider store={store}>
       <ProvidersWrapper>
-        <ProSidebarProvider key={key}>
+        <ProSidebarProvider>
           {loading ? (
             <Loader />
           ) : (
             <Router>
               <Component />
-              <ToastContainer position='top-right' />
+              <ToastContainer position="top-right" />
             </Router>
           )}
         </ProSidebarProvider>
