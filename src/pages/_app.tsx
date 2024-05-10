@@ -12,6 +12,7 @@ import { showNotification } from '../components/Notifications/toastNotifications
 import axios from 'axios'; // Import Axios
 import { v4 as uuidv4 } from 'uuid'; // Import uuid for generating unique IDs
 import { onMessage } from 'firebase/messaging';
+import '../styles/scss/global/global.scss';
 
 interface AppProps {
   Component: React.ComponentType<any>;
