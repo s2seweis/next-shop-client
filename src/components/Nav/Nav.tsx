@@ -15,7 +15,7 @@ export default function Nav() {
         <meta name="keywords" content="Keywords" />
 
         {/* Android */}
-        <meta name="theme-color" content="red" />
+        <meta name="theme-color" content="white" />
         <meta name="mobile-web-app-capable" content="yes" />
 
         {/* iOS */}
@@ -24,8 +24,8 @@ export default function Nav() {
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
         {/* Windows  */}
-        <meta name="msapplication-navbutton-color" content="red" />
-        <meta name="msapplication-TileColor" content="red" />
+        <meta name="msapplication-navbutton-color" content="white" />
+        <meta name="msapplication-TileColor" content="white" />
         <meta name="msapplication-TileImage" content="ms-icon-144x144.png" />
         <meta name="msapplication-config" content="browserconfig.xml" />
 
@@ -71,7 +71,7 @@ export default function Nav() {
         {/* <link href="touch-icon-start-up-320x480.png" rel="apple-touch-startup-image" /> */}
 
         {/*  Pinned Tab  */}
-        {/* <link href="path/to/icon.svg" rel="mask-icon" sizes="any" color="red" /> */}
+        {/* <link href="path/to/icon.svg" rel="mask-icon" sizes="any" color="white" /> */}
 
         {/*  Android  */}
         <link href="icons/icon-192x192.png" rel="icon" sizes="192x192" />

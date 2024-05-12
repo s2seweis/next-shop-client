@@ -35,6 +35,22 @@ export const fetchProducts = createAsyncThunk<Product[]>(
   },
 );
 
+// ###
+
+export const fetchProductById = createAsyncThunk<Product, string>(
+  'products/fetchProductById',
+  async (productId) => {
+    try {
+      const response = await axios.get<Product>(`https://next-shop-server-aafff1b333cc.herokuapp.com/product/${productId}`);
+      return response.data;
+    } catch (error) {
+      throw new Error('Failed to fetch product by ID');
+    }
+  },
+);
+
+// ###
+
 export const deleteProduct = createAsyncThunk<string, string>(
   'products/deleteProduct',
   async (productid) => {
@@ -86,10 +102,10 @@ const productSlice = createSlice({
         state.status = 'succeeded';
         state.products = action.payload;
       })
-    //   .addCase(fetchProducts.rejected, (state, action: PayloadAction<string>) => {
-    //     state.status = 'failed';
-    //     state.error = action.payload;
-    //   })
+      .addCase(fetchProducts.rejected, (state, action: PayloadAction<string>) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      })
       .addCase(deleteProduct.fulfilled, (state, action: PayloadAction<string>) => {
         state.products = state.products.filter((product) => product.productid !== action.payload);
       })
@@ -101,6 +117,17 @@ const productSlice = createSlice({
         if (index !== -1) {
           state.products[index] = action.payload;
         }
+      })
+      .addCase(fetchProductById.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchProductById.fulfilled, (state, action: PayloadAction<Product>) => {
+        state.status = 'succeeded';
+        state.products = [action.payload]; // Update state with the fetched product
+      })
+      .addCase(fetchProductById.rejected, (state, action: PayloadAction<string>) => {
+        state.status = 'failed';
+        state.error = action.payload;
       });
   },
 });

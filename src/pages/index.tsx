@@ -83,6 +83,7 @@ const Home: React.FC = () => {
                 <Link href="/reset/RequestReset">Request New Password</Link>
                 <Link href="/reset/page/param1/param2">Confirm New Password</Link>
                 <Link href="/reset/ResetMessage">Reset Message</Link>
+                <Link href="/admin/products/page">ProductList</Link>
               </h4>
             </div>
           </main>

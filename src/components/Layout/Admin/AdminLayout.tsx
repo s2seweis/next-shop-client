@@ -21,7 +21,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
         <Sidebar/>
         <main
           className={styles.content}
-          style={{ minHeight: '100vh', margin: 'auto' }}
+          style={{ minHeight: '100vh', margin:"15px", position:"absolute", marginLeft:"80px", width:"79%" }}
         >
           {children}
         </main>

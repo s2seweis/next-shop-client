@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 // import { useSession } from 'next-auth/react';
 import { useAppSelector } from '@/src/redux/hooks';
+import ProductList from '@/src/components/Admin/Products/ProductList';
 
 const AdminDashboard = () => {
 
@@ -22,9 +23,13 @@ const AdminDashboard = () => {
     <div>
       {key === 'admin' ? (
         <AdminLayout>
-          <div>
+          <div className='adminSidebarContainer' style={{
+            // overflowX:"auto", 
+            // whiteSpace:"nowrap"
+            width:"100%"
+            }}>
             <Nav></Nav>
-            <h4>Dashboard22</h4>
+            <ProductList/>
           </div>
         </AdminLayout>
       ) : (

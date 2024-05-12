@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 // import { useSession } from 'next-auth/react';
 import { useAppSelector } from '@/src/redux/hooks';
+import ProductList from '@/src/components/Admin/Products/ProductList';
 
 const AdminDashboard = () => {
 
@@ -24,7 +25,7 @@ const AdminDashboard = () => {
         <AdminLayout>
           <div>
             <Nav></Nav>
-            <h4>Dashboard22</h4>
+            <ProductList/>
           </div>
         </AdminLayout>
       ) : (
