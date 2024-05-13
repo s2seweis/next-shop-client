@@ -5,6 +5,8 @@
     position: absolute;
     display: inline-block;
     align-items: center;
+    // right: 120px;
+    // left: 150px;
     right: 120px;
   }
   
@@ -25,7 +27,7 @@
     border-radius: 4px;
     z-index: 1;
     min-width: 300px; /* Adjust the minimum width as needed */
-    margin-right: -170px;
+    margin-right: -100px;
   
     div {
       padding: 2px;

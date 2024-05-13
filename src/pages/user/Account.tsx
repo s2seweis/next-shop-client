@@ -1,8 +1,8 @@
 // import { useDocumentTitle, useScrollTop } from 'hooks';
 import { LoadingOutlined } from '@ant-design/icons';
 import React, { lazy, Suspense, HTMLAttributes } from 'react';
-import UserTab from '@/src/components/Account/UserTab';
-import Layout from '@/src/components/Layout/Layout';
+import UserTab from '@/src/components/Account/ProfileTabs/UserTab';
+import Layout from '@/src/components/Layout/Public/Layout';
 
 // Define a custom interface for the tab props
 interface TabProps extends HTMLAttributes<HTMLDivElement> {
@@ -10,10 +10,10 @@ interface TabProps extends HTMLAttributes<HTMLDivElement> {
   label: string;
 }
 
-const UserAccountTab = lazy(() => import('@/src/components/Account/UserAccountTab'));
-const UpdateUserAccountTab = lazy(() => import('@/src/components/Account/UpdateUserAccountTab'));
-const ChangePasswordComponent = lazy(() => import('@/src/components/Account/ChangePasswordAccountTab'));
-const PreferenceTab = lazy(() => import('@/src/components/Account/PreferenceTab'));
+const UserAccountTab = lazy(() => import('@/src/components/Account/ProfileTabs/UserAccountTab'));
+const UpdateUserAccountTab = lazy(() => import('@/src/components/Account/ProfileTabs/UpdateUserAccountTab'));
+const ChangePasswordComponent = lazy(() => import('@/src/components/Account/ProfileTabs/ChangePasswordAccountTab'));
+const PreferenceTab = lazy(() => import('@/src/components/Account/ProfileTabs/PreferenceTab'));
 // const UserOrdersTab = lazy(() => import('../components/UserOrdersTab'));
 
 const Loader: React.FC = () => (

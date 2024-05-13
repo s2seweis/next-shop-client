@@ -4,7 +4,7 @@
 import Nav from '../../components/Nav/Nav';
 import styles from '@/src/styles/scss/pages/Account/Dashboard.module.scss';
 // import AuthButton from '../../components/Buttons/AuthButton/AuthButton.js';
-import Layout from '@/src/components/Layout/Layout';
+import Layout from '@/src/components/Layout/Public/Layout';
 
 const Dashboard: React.FC = () => {
   // const { isLoggedIn } = useAuth(); // Use the useAuth hook to access the AuthContext

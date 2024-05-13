@@ -11,7 +11,7 @@ import {
 import { FiArrowLeftCircle, FiArrowRightCircle } from 'react-icons/fi';
 // import { CaretLeftOutlined,CaretRightOutlined, PieChartOutlined } from '@ant-design/icons';
 import Link from 'next/link';
-import { DASHBOARD, GITHUB } from '@/src/components/Layout/Admin/routes';
+// import { DASHBOARD, GITHUB } from '@/src/components/Layout/Admin/routes';
 
 const AdminSidebar = () => {
   const { collapseSidebar } = useProSidebar();
@@ -28,7 +28,7 @@ const AdminSidebar = () => {
           backgroundColor='white'
         >
           <Menu style={{marginTop:"50px"}}>
-            <MenuItem icon={<Icon name="dashboard" />} className={styles.menuItem}>
+            <MenuItem icon={<Link style={{display:"flex", justifyContent:"center", alignItems:"center"}} href="/admin/AdminDashboard"><Icon name="dashboard"  /></Link>} className={styles.menuItem}>
               <Link href="/admin/AdminDashboard">Dashboard</Link>
             </MenuItem>
             {/* ### */}
@@ -42,11 +42,11 @@ const AdminSidebar = () => {
                 <Link href="/admin/AdminProducts">Products</Link>
               </MenuItem>
               <MenuItem>
-                <Link href="/admin/AdminProducts">Categories</Link>
+                <Link href="/admin/AdminCategories">Categories</Link>
               </MenuItem>
             </SubMenu>
-            <MenuItem icon={<Icon name="orders" />} className={styles.menuItem}>
-              <Link href="/admin/orders">Orders</Link>
+            <MenuItem icon={<Link style={{display:"flex", justifyContent:"center", alignItems:"center"}} href="/admin/AdminDashboard"><Icon name="orders"  /></Link>} className={styles.menuItem}>
+              <Link href="/admin/AdminDashboard">Orders</Link>
             </MenuItem>
             <MenuItem icon={<Icon name="book-2" />} className={styles.menuItem}>
               <Link href="/admin/docs">Docs</Link>

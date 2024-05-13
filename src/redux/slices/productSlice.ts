@@ -5,7 +5,7 @@ interface Product {
   price: string;
   category: string;
   productname: string;
-  productid: string;
+  productid: number;
   // Add other properties as needed
 }
 
@@ -51,7 +51,7 @@ export const fetchProductById = createAsyncThunk<Product, string>(
 
 // ###
 
-export const deleteProduct = createAsyncThunk<string, string>(
+export const deleteProduct = createAsyncThunk<number, number>(
   'products/deleteProduct',
   async (productid) => {
     console.log("line:999", productid);
@@ -102,11 +102,8 @@ const productSlice = createSlice({
         state.status = 'succeeded';
         state.products = action.payload;
       })
-      .addCase(fetchProducts.rejected, (state, action: PayloadAction<string>) => {
-        state.status = 'failed';
-        state.error = action.payload;
-      })
-      .addCase(deleteProduct.fulfilled, (state, action: PayloadAction<string>) => {
+  
+      .addCase(deleteProduct.fulfilled, (state, action: PayloadAction<number>) => {
         state.products = state.products.filter((product) => product.productid !== action.payload);
       })
       .addCase(addProduct.fulfilled, (state, action: PayloadAction<Product>) => {
@@ -125,10 +122,6 @@ const productSlice = createSlice({
         state.status = 'succeeded';
         state.products = [action.payload]; // Update state with the fetched product
       })
-      .addCase(fetchProductById.rejected, (state, action: PayloadAction<string>) => {
-        state.status = 'failed';
-        state.error = action.payload;
-      });
   },
 });
 

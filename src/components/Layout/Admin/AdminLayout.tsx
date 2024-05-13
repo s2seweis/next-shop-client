@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import AdminNavbar from './AdminNavbar';
 import AdminSidebar from './AdminSidebar';
-import Sidebar from '../Sidebar';
+import Sidebar from '../Public/Sidebar';
 import { SidebarProvider } from '../../../utils/context/SidebarContext';
 import styles from '../../../styles/scss/layout/admin/AdminLayout.module.scss';
 import Footer from '../Admin/FooterAdmin';
@@ -21,7 +21,16 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
         <Sidebar/>
         <main
           className={styles.content}
-          style={{ minHeight: '100vh', margin:"15px", position:"absolute", marginLeft:"80px", width:"79%" }}
+          style={{
+            minHeight: '100vh',
+            margin: '15px',
+            position: 'absolute',
+            marginLeft: '69px',
+            width: 'calc(100% - 69px)', // Adjusting width to accommodate scrollbar
+            overflowX: 'auto', // Make the content scrollable horizontally
+            overflowY: 'hidden', // Disable vertical scrolling
+            whiteSpace: 'nowrap' // Prevent content from wrapping to a new line
+          }}
         >
           {children}
         </main>

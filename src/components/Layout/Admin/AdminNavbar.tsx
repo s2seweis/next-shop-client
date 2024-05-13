@@ -4,6 +4,7 @@ import styles from '../../../styles/scss/layout/admin/AdminNavbar.module.scss';
 import { SiWolfram } from 'react-icons/si';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { useSidebarContext } from '../../../utils/context/SidebarContext';
+import DropdownNotification from '../../Notifications/DropdownNotification';
 
 const AdminNavbar: React.FC = () => {
   const { isSidebarOpen, toggleSidebar } = useSidebarContext();
@@ -25,7 +26,10 @@ const AdminNavbar: React.FC = () => {
           <div className={styles.sidebarToggle} onClick={handleToggleClick}>
             {isSidebarOpen ? <FaTimes /> : <FaBars />}
           </div>
+          <div className={styles.titleContainer}>
           <h3>Admin Area</h3>
+          </div>
+          <DropdownNotification/>
         </div>
         <div className={styles.logo}>
           <Link href="/">

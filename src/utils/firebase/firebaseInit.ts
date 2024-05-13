@@ -21,16 +21,36 @@ if (typeof window !== 'undefined') {
 
 export { messaging }; // Export the messaging instance
 
-export const generateToken = async () => {
-  if (typeof window !== 'undefined') {
-    const permission = await Notification.requestPermission();
-    // console.log('Notification permission:', permission);
+// export const generateToken = async () => {
+//   if (typeof window !== 'undefined') {
+//     const permission = await Notification.requestPermission();
+//     // console.log('Notification permission:', permission);
 
-    if (permission === 'granted' && messaging) {
-      const token = await getToken(messaging, {
-        vapidKey: 'BLbNFs5G-dMSMk1dMHh0Sb8c5x95il0jZjoSgndS4piIaoufvxcONwrqLaSVkPCCmAXAlxdVl7K6KwxxvcSszLM',
-      });
-      console.log('Firebase Messaging token:', token);
+//     if (permission === 'granted' && messaging) {
+//       const token = await getToken(messaging, {
+//         vapidKey: 'BLbNFs5G-dMSMk1dMHh0Sb8c5x95il0jZjoSgndS4piIaoufvxcONwrqLaSVkPCCmAXAlxdVl7K6KwxxvcSszLM',
+//       });
+//       console.log('Firebase Messaging token:', token);
+//     }
+//   } else {
+//     console.warn('generateToken is only executed in the browser environment.');
+//   }
+// };
+
+export const generateToken = async () => {
+  if (typeof window !== 'undefined' && messaging) {
+    try {
+      const permission = await Notification.requestPermission();
+      // console.log('Notification permission:', permission);
+
+      if (permission === 'granted') {
+        const token = await getToken(messaging, {
+          vapidKey: 'BLbNFs5G-dMSMk1dMHh0Sb8c5x95il0jZjoSgndS4piIaoufvxcONwrqLaSVkPCCmAXAlxdVl7K6KwxxvcSszLM',
+        });
+        console.log('Firebase Messaging token:', token);
+      }
+    } catch (error) {
+      console.error('Error generating token:', error);
     }
   } else {
     console.warn('generateToken is only executed in the browser environment.');

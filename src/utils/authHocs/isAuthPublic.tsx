@@ -1,5 +1,5 @@
 import React, { ComponentType } from 'react';
-import Layout from '../../components/Layout/Layout';
+import Layout from '../../components/Layout/Public/Layout';
 
 const IsAuthPublic = <P extends object>(WrappedComponent: ComponentType<P>) => (props: P) => {
   return (

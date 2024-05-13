@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 // import { useSession } from 'next-auth/react';
 import { useAppSelector } from '@/src/redux/hooks';
-import ProductList from '@/src/components/Admin/Products/ProductList';
+import Loader from '@/src/components/Loader/Loader';
 
 const AdminDashboard = () => {
 
@@ -25,12 +25,13 @@ const AdminDashboard = () => {
         <AdminLayout>
           <div>
             <Nav></Nav>
-            <ProductList/>
+            <h4>Categories</h4>
           </div>
         </AdminLayout>
       ) : (
         <div className="lockedContainer">
-          <h1 className="text-5xl">You Shall Not Pass1!</h1>
+          {/* <h1 className="text-5xl">You Shall Not Pass1!</h1> */}
+          <Loader/>
         </div>
       )}
     </div>

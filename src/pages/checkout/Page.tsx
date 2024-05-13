@@ -1,5 +1,5 @@
 import Nav from '@/src/components/Nav/Nav';
-import Layout from '../../components/Layout/Layout';
+import Layout from '../../components/Layout/Public/Layout';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';

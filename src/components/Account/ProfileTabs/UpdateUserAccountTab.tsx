@@ -1,5 +1,5 @@
-import Nav from '../Nav/Nav';
-import ProfileComponent from '@/src/components/Account/Profile/ProfileComponent';
+import Nav from '../../Nav/Nav';
+import UpdateProfileComponent from '@/src/components/Account/Profile/UpdateProfileComponent';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -19,10 +19,8 @@ interface UserWithUserId extends User {
   userId: string;
 }
 
-
-const UserAccountTab: React.FC = () => {
+const UpdateUserAccountTab: React.FC = () => {
   const { data: session } = useSession(); // Retrieve session information  
-  
   const router = useRouter();
 
   useEffect(() => {
@@ -32,13 +30,13 @@ const UserAccountTab: React.FC = () => {
   }, [session, router]);
 
   const userId = (session?.user as UserWithUserId)?.userId;
-  
+
   return (
     <div>
         <Nav />
         {session ? (
           <div className={styles.mainContainer}>
-            <ProfileComponent userId={userId ?? ''}  />
+            <UpdateProfileComponent userId={userId}  />
           </div>
         ) : (
           <div className={styles.mainContainer}>
@@ -56,4 +54,4 @@ const UserAccountTab: React.FC = () => {
   );
 };
 
-export default UserAccountTab;
+export default UpdateUserAccountTab;

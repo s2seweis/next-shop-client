@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  List,
-  Skeleton,
-  Avatar,
-  Modal,
-  Input,
-  Button,
-  Badge,
-  Menu,
-} from 'antd';
+import { List, Skeleton, Avatar, Modal, Input, Button, Badge } from 'antd';
 import Link from 'next/link';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import {
@@ -37,9 +28,11 @@ const ProductList: React.FC = () => {
   const [productIdToDelete, setProductIdToDelete] = useState<number | null>(
     null,
   );
+  console.log('line:100', productIdToDelete);
+
   const [searchText, setSearchText] = useState<string>('');
-  const [initLoading, setInitLoading] = useState<boolean>(true);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [initLoading] = useState<boolean>(true);
+  const [, setLoading] = useState<boolean>(false); // Corrected declaration
   const [start, setStart] = useState<number>(0);
   const [end, setEnd] = useState<number>(3);
 
@@ -96,7 +89,7 @@ const ProductList: React.FC = () => {
   ) : null;
 
   return (
-    <div >
+    <div>
       <div
         style={{
           display: 'flex',
@@ -149,36 +142,50 @@ const ProductList: React.FC = () => {
           <Button type="primary">Add Product</Button>
         </Link>
       </div>
-      <div style={{display:"flex", justifyContent:"space-between", margin:"0px 15px"}} mode="horizontal">
-        <div style={{}} key="image-picture">Image</div>
-        <div style={{}} key="product-name">Product</div>
-        <div style={{}}  key="category">Category</div>
-        <div style={{}} key="category">More</div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          margin: '0px 15px',
+        }}
+      >
+        <div style={{}} key="image-picture">
+          Image
+        </div>
+        <div style={{}} key="product-name">
+          Product
+        </div>
+        <div style={{}} key="category">
+          Category
+        </div>
+        <div style={{}} key="category">
+          More
+        </div>
       </div>
-      <List
+
+      {/* <List
         className="demo-loadmore-list"
         itemLayout="horizontal"
         dataSource={filteredList.slice(start, end)}
         loadMore={loadMore}
         renderItem={(item) => (
-          <List.Item 
+          <List.Item
             actions={[
-              <div className='more' style={{display:"grid"}}>
-              <Link
-                key="list-loadmore-edit"
-                href={`/admin/products/edit/${item.productid}`}
-                passHref
-              >
-                Edit
-              </Link> 
-              {/* |&nbsp;  */}
-              <a
-                key="list-loadmore-more"
-                onClick={() => handleDelete(item.productid)}
-              >
-                Delete
-              </a>
-              </div>
+              <div className="more" style={{ display: 'grid' }}>
+                <Link
+                  key="list-loadmore-edit"
+                  href={`/admin/products/edit/${item.productid}`}
+                  passHref
+                >
+                  Edit
+                </Link>
+                <a
+                  key="list-loadmore-more"
+                  onClick={() => handleDelete(item.productid)}
+                >
+                  Delete
+                </a>
+              </div>,
             ]}
           >
             <Skeleton
@@ -191,16 +198,83 @@ const ProductList: React.FC = () => {
                 style={{ alignItems: 'center' }}
                 avatar={<Avatar src={profilePlaceholder} />}
                 title={
-                  <a style={{ fontSize: '0.8rem' }} href="#">
+                  <h4
+                    style={{
+                      fontSize: '0.8rem',
+                      overflow: 'auto',
+                      marginRight: '10px',
+                    }}
+                  >
                     {item.productname}
-                  </a>
+                  </h4>
                 }
               />
               <div>{item.category}</div>
             </Skeleton>
           </List.Item>
         )}
+      /> */}
+
+      <List
+        className="demo-loadmore-list"
+        itemLayout="horizontal"
+        dataSource={filteredList.slice(start, end)}
+        loadMore={loadMore}
+        renderItem={(
+          item,
+          _index, // index added for key if necessary
+        ) => (
+          <List.Item
+            key={item.productid} // Ensuring each List.Item has a unique key
+            actions={[
+              <div
+                className="more"
+                style={{ display: 'grid' }}
+                key={`actions-${item.productid}`}
+              >
+                <Link
+                  key={`edit-${item.productid}`} // key is redundant here due to single usage in Link
+                  href={`/admin/products/edit/${item.productid}`}
+                  passHref
+                >
+                  Edit
+                </Link>
+                <a
+                  key={`delete-${item.productid}`} // key is redundant here due to single usage in Link
+                  onClick={() => handleDelete(item.productid)}
+                >
+                  Delete
+                </a>
+              </div>,
+            ]}
+          >
+            <Skeleton
+              avatar
+              title={false}
+              loading={status === 'loading'}
+              active
+            >
+              <List.Item.Meta
+                style={{ alignItems: 'center' }}
+                avatar={<Avatar src={profilePlaceholder} />}
+                title={
+                  <h4
+                    style={{
+                      fontSize: '0.8rem',
+                      overflow: 'auto',
+                      marginRight: '10px',
+                    }}
+                  >
+                    {item.productname}
+                  </h4>
+                }
+                description={item.category}
+              />
+            </Skeleton>
+          </List.Item>
+        )}
       />
+
       <Modal
         title="Confirm Delete"
         visible={modalVisible}

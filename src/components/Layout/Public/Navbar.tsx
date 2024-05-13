@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { SiWolfram } from 'react-icons/si';
-import styles from '../../styles/scss/layout/public/Navbar.module.scss';
-import { useSidebarContext } from '../../utils/context/SidebarContext';
+import styles from '../../../styles/scss/layout/public/Navbar.module.scss';
+import { useSidebarContext } from '../../../utils/context/SidebarContext';
 import Link from 'next/link';
-import DropdownMenu from '../DropdownMenu/DropDownMenu';
+import DropdownMenu from '../../DropdownMenu/DropDownMenu';
 // ###
-import DropdownNotification from '../Notifications/DropdownNotification';
+import DropdownNotification from '../../Notifications/DropdownNotification';
 // ###
-// import NotificationComponent from '../NotificationComponent'; // Import the NotificationComponent
 
 const options = [
   { value: '', label: 'Home' },
@@ -76,6 +75,8 @@ const Navbar = () => {
 
       <header className={styles.menu1}>
         <nav className={styles.navbar}>
+          <div className="notificationContainer" style={{ left: '150px' }}>
+          </div>
           <div className={styles.logo}>
             <Link href="/">
               <div style={{ cursor: 'pointer' }}>
@@ -92,7 +93,6 @@ const Navbar = () => {
               </div>
             </Link>
           </div>
-
           <div className={styles.navLinks}>
             {options.map((option) => (
               <div key={option.value}>
@@ -105,14 +105,14 @@ const Navbar = () => {
               </div>
             ))}
           </div>
-          <div style={{ alignItems: 'center', display: 'flex' }}>
-            {/* <FaBell /> */}
-            {/* <DropdownNotification /> */}
-          </div>
+          <div style={{ alignItems: 'center', display: 'flex' }}></div>
           <div style={{ alignItems: 'center', display: 'flex' }}></div>
           <DropdownMenu />
+          <DropdownNotification />
         </nav>
       </header>
+
+      <DropdownNotification />
       <div
         className="dropDownContainer"
         style={{
@@ -123,7 +123,6 @@ const Navbar = () => {
         }}
       >
         <DropdownMenu />
-        <DropdownNotification />
       </div>
     </nav>
   );

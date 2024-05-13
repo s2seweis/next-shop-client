@@ -1,4 +1,4 @@
-import Nav from '../Nav/Nav';
+import Nav from '../../Nav/Nav';
 import PreferencesComponent from '@/src/components/Account/Profile/PreferencesComponent';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';

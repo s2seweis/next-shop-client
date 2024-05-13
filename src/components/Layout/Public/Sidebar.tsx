@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaRegWindowClose, FaAngleDown, FaAngleRight } from 'react-icons/fa';
-import { useSidebarContext } from '../../utils/context/SidebarContext';
+import { useSidebarContext } from '../../../utils/context/SidebarContext';
 import Link from 'next/link';
-import styles from '../../styles/scss/layout/public/Sidebar.module.scss';
+import styles from '../../../styles/scss/layout/public/Sidebar.module.scss';
 import { menuItems } from './menuItems';
-import SignInButton from '../Buttons/SignInButton/SignInButton';
+import SignInButton from '../../Buttons/SignInButton/SignInButton';
 import { useAppSelector} from '@/src/redux/hooks';
 
 const Sidebar: React.FC = () => {

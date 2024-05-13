@@ -32,7 +32,6 @@ const EditItemPage = () => {
 
   const products = useAppSelector((state) => state.products.products);
   const status = useAppSelector((state) => state.products.status);
-  const error = useAppSelector((state) => state.products.error);
 
   const router = useRouter();
   const { id } = router.query;

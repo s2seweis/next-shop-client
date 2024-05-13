@@ -47,43 +47,36 @@ const Home: React.FC = () => {
             </h5>
             <div className={styles.linkContainer}>
               <h4>
-                Authentication with SignIn Form
+                Auth
+                <Link href="auth/Register">Register (visible for all)</Link>
+                <Link href="auth/SignIn">
+                  Sign In (visible for all) - Other Route
+                </Link>
+                <Link href="/reset/RequestReset">Request New Password</Link>
+                <Link href="/reset/page/param1/param2">Confirm New Password</Link>
+                <Link href="/reset/ResetMessage">Reset Message</Link>
+              </h4>
+              <h4>
+                Shop
                 <Link href="/">Home (visible for all)</Link>
+                <Link href="/user/Account">User Account</Link>
                 <Link href="contact/ContactForm">
                   Contact (visible for all)
                 </Link>
                 <Link href="/admin/AdminDashboard">
                   Admin (visible for admin)
                 </Link>
+                <Link href="/admin/AdminProducts">Product List | Admin</Link>
+                <Link href="/admin/AdminCategories">Categories | Admin</Link>
                 <Link href="/checkout/Page">
                   Checkout (only visible for admin and user)
                 </Link>
-                <Link href="auth/Register">Register (visible for all)</Link>
-                <Link href="auth/SignIn">
-                  Sign In (visible for all) - Other Route
-                </Link>
                 <Link href="download/DownloadApp">App Download Button (visible for all)</Link>
+                <Link href="/">Notifications | Front & Background Messages</Link>
               </h4>
               <h4>
-                Products Redux Test: Post, Get, Delete & Update
-                <Link href="/product/Products">
-                  Get/Delete Products - Redux/ API Call
-                </Link>
-                <Link href="/product/AddProduct">
-                  Add Products - Redux/ API Call
-                </Link>
-                <Link href="/product/UpdateProducts">
-                  Update Products - Redux/ API Call
-                </Link>
-              </h4>
-              <h4>
-                Test Component
-                <Link href="/user/Account">User Account</Link>
-                <Link href="/test/Redux">Counter</Link>
-                <Link href="/reset/RequestReset">Request New Password</Link>
-                <Link href="/reset/page/param1/param2">Confirm New Password</Link>
-                <Link href="/reset/ResetMessage">Reset Message</Link>
-                <Link href="/admin/products/page">ProductList</Link>
+                Workbench
+                <Link href="/test/Redux">Counter - For Ingredients</Link>
               </h4>
             </div>
           </main>
