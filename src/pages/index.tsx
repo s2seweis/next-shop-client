@@ -67,7 +67,7 @@ const Home: React.FC = () => {
                   Admin (visible for admin)
                 </Link>
                 <Link href="/admin/AdminProducts">Product List | Admin</Link>
-                <Link href="/admin/AdminCategories">Categories | Admin</Link>
+                <Link href="/admin/AdminCategories">Category List | Admin</Link>
                 <Link href="/checkout/Page">
                   Checkout (only visible for admin and user)
                 </Link>

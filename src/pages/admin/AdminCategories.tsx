@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 // import { useSession } from 'next-auth/react';
 import { useAppSelector } from '@/src/redux/hooks';
 import Loader from '@/src/components/Loader/Loader';
+import CategoryList from '@/src/components/Admin/Categories/CategoryList';
 
 const AdminDashboard = () => {
 
@@ -25,7 +26,8 @@ const AdminDashboard = () => {
         <AdminLayout>
           <div>
             <Nav></Nav>
-            <h4>Categories</h4>
+            {/* <h4>Categories</h4> */}
+            <CategoryList/>
           </div>
         </AdminLayout>
       ) : (

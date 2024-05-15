@@ -2,6 +2,7 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import profileReducer from '@/src/redux/slices/profileSlice';
 import preferenceReducer from '@/src/redux/slices/userPreferenceSlice';
 import productsReducer from '@/src/redux/slices/productSlice';
+import categoriesReducer from '@/src/redux/slices/categorySlice';
 import counterReducer from '@/src/redux/slices/counterSlice';
 import resetReducer from '@/src/redux/slices/resetSlice';
 import notificationReducer from '@/src/redux/slices/notificationSlice';
@@ -13,7 +14,8 @@ export const store = configureStore({
     products: productsReducer,
     counter: counterReducer,
     reset: resetReducer,
-    notification: notificationReducer
+    notification: notificationReducer,
+    categories: categoriesReducer
   },
 });
 
