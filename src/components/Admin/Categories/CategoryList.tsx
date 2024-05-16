@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Modal, Input, Button, Badge, Avatar, Space, Tag } from 'antd';
+import { Table, Modal, Input, Button, Badge, Avatar, Space} from 'antd';
 import Link from 'next/link';
 import { ArrowLeftOutlined, ReloadOutlined } from '@ant-design/icons';
 import { fetchCategories, deleteCategory } from '../../../redux/slices/categorySlice';
@@ -154,7 +154,7 @@ const CategoryList: React.FC = () => {
       <Table
         columns={columns}
         dataSource={filteredList}
-        pagination={{ pageSize: 5 }}
+        pagination={{ pageSize: 7 }}
       />
       <Modal
         title="Confirm Delete"

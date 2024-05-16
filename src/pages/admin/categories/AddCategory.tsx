@@ -1,40 +1,46 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addCategory } from '../../../redux/slices/categorySlice';
-import { Typography, Spin, Divider, Card, Form, Input, Button, Upload } from 'antd';
+import { Typography, Spin, Divider, Card, Form, Input, Button, Upload, UploadProps } from 'antd';
 import { Formik } from 'formik';
 import Link from 'next/link';
 import AdminLayout from '@/src/components/Layout/Admin/AdminLayout';
+import { AppDispatch } from '@/src/redux/store'; // import your AppDispatch type
 
 const { Title } = Typography;
 
-const AddCategoryPage = () => {
-  const dispatch = useDispatch();
-  const [imagePreview, setImagePreview] = useState('');
-  const [imageData, setImageData] = useState(null);
+interface FormValues {
+  category_name: string;
+  number_of_products: number;
+}
 
-  const handleImageChange = (info) => {
+const AddCategoryPage: React.FC = () => {
+  const dispatch: AppDispatch = useDispatch(); // properly type the dispatch
+  const [imagePreview, setImagePreview] = useState<string>('');
+  const [imageData, setImageData] = useState<File | null>(null);
+
+  const handleImageChange: UploadProps['onChange'] = (info) => {
     if (info.file.status === 'done' && info.file.originFileObj) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        setImagePreview(e.target.result);
+        if (e.target) {
+          setImagePreview(e.target.result as string);
+        }
       };
       reader.readAsDataURL(info.file.originFileObj);
       setImageData(info.file.originFileObj);
     }
   };
 
-  const handleSubmit = (values) => {
-    console.log('Submitting form:', values); // Check if handleSubmit is being called
-    console.log('Image data:', imageData); // Check if imageData is set correctly
+  const handleSubmit = (values: FormValues) => {
+    const formData = new FormData();
+    formData.append('category_name', values.category_name);
+    formData.append('number_of_products', values.number_of_products.toString());
+    if (imageData) {
+      formData.append('category_image', imageData);
+    }
 
-    const data = {
-      ...values,
-      category_image: imageData,
-    };
-    console.log('Form data:', data);
-
-    dispatch(addCategory(data));
+    dispatch(addCategory(formData));
   };
 
   return (
@@ -62,7 +68,10 @@ const AddCategoryPage = () => {
                 initialValues={values}
               >
                 <Form.Item label="Category Name" name="category_name">
-                  <Input value={values.category_name} onChange={handleChange} />
+                  <Input
+                    value={values.category_name}
+                    onChange={handleChange('category_name')}
+                  />
                 </Form.Item>
                 <Form.Item label="Category Image" name="category_image">
                   <Upload
@@ -83,7 +92,7 @@ const AddCategoryPage = () => {
                 <Form.Item label="Number of Products" name="number_of_products">
                   <Input
                     value={values.number_of_products}
-                    onChange={handleChange}
+                    onChange={handleChange('number_of_products')}
                     type="number"
                   />
                 </Form.Item>
