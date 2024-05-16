@@ -28,7 +28,7 @@ const AdminSidebar = () => {
           backgroundColor='white'
         >
           <Menu style={{marginTop:"50px"}}>
-            <MenuItem icon={<Link style={{display:"flex", justifyContent:"center", alignItems:"center"}} href="/admin/AdminDashboard"><Icon name="dashboard"  /></Link>} className={styles.menuItem}>
+            <MenuItem icon={<Link style={{display:"flex", justifyContent:"center", alignItems:"center"}} href="/admin/AdminDashboard"><Icon name="bar-chart"  /></Link>} className={styles.menuItem}>
               <Link href="/admin/AdminDashboard">Dashboard</Link>
             </MenuItem>
             {/* ### */}
@@ -44,9 +44,25 @@ const AdminSidebar = () => {
               <MenuItem>
                 <Link href="/admin/AdminCategories">Categories</Link>
               </MenuItem>
+              
             </SubMenu>
             <MenuItem icon={<Link style={{display:"flex", justifyContent:"center", alignItems:"center"}} href="/admin/AdminDashboard"><Icon name="orders"  /></Link>} className={styles.menuItem}>
               <Link href="/admin/AdminDashboard">Orders</Link>
+            </MenuItem>
+            <MenuItem icon={<Link style={{display:"flex", justifyContent:"center", alignItems:"center"}} href="/admin/AdminDashboard"><Icon name="service"  /></Link>} className={styles.menuItem}>
+              <Link href="/admin/AdminDashboard">Offers</Link>
+            </MenuItem>
+            <MenuItem icon={<Link style={{display:"flex", justifyContent:"center", alignItems:"center"}} href="/admin/AdminDashboard"><Icon name="dashboard"  /></Link>} className={styles.menuItem}>
+              <Link href="/admin/AdminDashboard">Delivery Areas</Link>
+            </MenuItem>
+            <MenuItem icon={<Link style={{display:"flex", justifyContent:"center", alignItems:"center"}} href="/admin/AdminDashboard"><Icon name="users"  /></Link>} className={styles.menuItem}>
+              <Link href="/admin/AdminDashboard">Users</Link>
+            </MenuItem>
+            <MenuItem icon={<Link style={{display:"flex", justifyContent:"center", alignItems:"center"}} href="/admin/AdminDashboard"><Icon name="settings"  /></Link>} className={styles.menuItem}>
+              <Link href="/admin/AdminDashboard">Settings</Link>
+            </MenuItem>
+            <MenuItem icon={<Link style={{display:"flex", justifyContent:"center", alignItems:"center"}} href="/admin/AdminDashboard"><Icon name="messages"  /></Link>} className={styles.menuItem}>
+              <Link href="/admin/AdminDashboard">News</Link>
             </MenuItem>
             <MenuItem icon={<Icon name="book-2" />} className={styles.menuItem}>
               <Link href="/admin/docs">Docs</Link>

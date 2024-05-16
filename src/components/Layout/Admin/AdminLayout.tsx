@@ -16,16 +16,20 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   return (
     <SidebarProvider>
       <AdminNavbar />
-      <div style={{ display: 'flex', height: '90vh' }}>
+      <div style={{ 
+        display: 'flex', 
+        // height: '90vh',
+        height:"auto"
+        }}>
         <AdminSidebar />
         <Sidebar/>
         <main
           className={styles.content}
           style={{
-            minHeight: '100vh',
-            margin: '15px',
-            position: 'absolute',
-            marginLeft: '69px',
+            // minHeight: '100vh',
+            margin: '15px 5px',
+            // position: 'absolute',
+            // marginLeft: '69px',
             width: 'calc(100% - 69px)', // Adjusting width to accommodate scrollbar
             overflowX: 'auto', // Make the content scrollable horizontally
             overflowY: 'hidden', // Disable vertical scrolling

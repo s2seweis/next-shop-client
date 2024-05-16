@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { List, Skeleton, Avatar, Modal, Input, Button, Badge } from 'antd';
+import { Table, Modal, Input, Button, Badge, Avatar, Space, Tag } from 'antd';
 import Link from 'next/link';
-import { ArrowLeftOutlined } from '@ant-design/icons';
-import {
-  fetchCategories,
-  deleteCategory,
-} from '../../../redux/slices/categorySlice';
+import { ArrowLeftOutlined, ReloadOutlined } from '@ant-design/icons';
+import { fetchCategories, deleteCategory } from '../../../redux/slices/categorySlice';
 import { useAppSelector, useAppDispatch } from '@/src/redux/hooks';
 
 interface Category {
@@ -13,25 +10,20 @@ interface Category {
   categoryName: string;
   categoryImage: string;
   numberOfProducts: number;
+  key: string;
 }
 
 const CategoryList: React.FC = () => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.categories.categories);
-
   const status = useAppSelector((state) => state.categories.status);
   const [list, setList] = useState<Category[]>([]);
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [categoryIdToDelete, setCategoryIdToDelete] = useState<number | null>(
-    null,
-  );
+  const [categoryIdToDelete, setCategoryIdToDelete] = useState<number | null>(null);
+  const [keyToDelete, setKeyToDelete] = useState<string | null>(null);
 
   const [searchText, setSearchText] = useState<string>('');
-  const [initLoading] = useState<boolean>(true);
-  const [, setLoading] = useState<boolean>(false);
-  const [start, setStart] = useState<number>(0);
-  const [end, setEnd] = useState<number>(5);
 
   useEffect(() => {
     if (status === 'idle') {
@@ -41,15 +33,16 @@ const CategoryList: React.FC = () => {
     }
   }, [dispatch, status, categories]);
 
-  const handleDelete = (categoryId: number) => {
+  const handleDelete = (categoryId: number, _key: string) => {
     setModalVisible(true);
     setCategoryIdToDelete(categoryId);
+    setKeyToDelete(_key);
   };
 
   const handleConfirmDelete = () => {
-    if (categoryIdToDelete !== null) {
+    if (categoryIdToDelete !== null && keyToDelete !== null) {
       setConfirmLoading(true);
-      dispatch(deleteCategory(categoryIdToDelete)).then(() => {
+      dispatch(deleteCategory({ categoryId: categoryIdToDelete, key: keyToDelete })).then(() => {
         setConfirmLoading(false);
         setModalVisible(false);
       });
@@ -61,29 +54,45 @@ const CategoryList: React.FC = () => {
     setCategoryIdToDelete(null);
   };
 
-  const filteredList = list.filter((category) =>
-    category.categoryName.toLowerCase().includes(searchText.toLowerCase()),
-  );
+  const filteredList = list.filter((category) => {
+    return category.categoryName &&
+      category.categoryName.toLowerCase().includes(searchText.toLowerCase());
+  });
 
-  const onLoadMore = () => {
-    setLoading(true);
-    setStart(0);
-    setEnd(end + 5);
-    setLoading(false);
+  const handleRefresh = () => {
+    dispatch(fetchCategories());
   };
 
-  const loadMore = initLoading ? (
-    <div
-      style={{
-        textAlign: 'center',
-        marginTop: 12,
-        height: 32,
-        lineHeight: '32px',
-      }}
-    >
-      <Button onClick={onLoadMore}>Load More</Button>
-    </div>
-  ) : null;
+  const columns = [
+    {
+      title: 'Image',
+      dataIndex: 'categoryImage',
+      key: 'categoryImage',
+      render: (text: string) => <Avatar src={text} />,
+    },
+    {
+      title: 'Category',
+      dataIndex: 'categoryName',
+      key: 'categoryName',
+    },
+    {
+      title: 'Products',
+      dataIndex: 'numberOfProducts',
+      key: 'numberOfProducts',
+    },
+    {
+      title: 'Actions',
+      key: 'action',
+      render: (_: any, record: Category) => (
+        <Space size="middle">
+          <Link href={`/admin/categories/edit/${record.categoryId}`} passHref>
+            Edit
+          </Link>
+          <a onClick={() => handleDelete(record.categoryId, record.key)}>Delete</a>
+        </Space>
+      ),
+    },
+  ];
 
   return (
     <div>
@@ -112,13 +121,10 @@ const CategoryList: React.FC = () => {
           placeholder="Category Name ..."
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
-          style={{ maxWidth: '300px', marginRight: '10px' }}
+          style={{ maxWidth: '300px', marginRight: '0px', minWidth:"100px" }}
         />
-
         <Badge overflowCount={999}>
-          <span style={{ marginRight: '10px', fontSize: '16px' }}>
-            Categories
-          </span>
+          <span style={{ marginRight: '10px', fontSize: '16px' }}></span>
           {filteredList.length > 0 && (
             <sup
               data-show="true"
@@ -138,88 +144,18 @@ const CategoryList: React.FC = () => {
         <Link href="/admin/categories/AddCategory" passHref>
           <Button type="primary">Add Category</Button>
         </Link>
+        <Button
+          style={{ minWidth: '40px', marginRight: '10px', marginLeft: '10px' }}
+          type="default"
+          icon={<ReloadOutlined />}
+          onClick={handleRefresh}
+        />
       </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          margin: '0px 15px',
-        }}
-      >
-        <div style={{}} key="image-picture">
-          Image
-        </div>
-        <div style={{}} key="category-name">
-          Category
-        </div>
-        <div style={{}} key="number-of-products">
-          Quantity of Products
-        </div>
-        <div style={{}} key="more">
-          More
-        </div>
-      </div>
-
-      <List
-        className="demo-loadmore-list"
-        itemLayout="horizontal"
-        dataSource={filteredList.slice(start, end)}
-        loadMore={loadMore}
-        renderItem={(
-          item,
-          _index,
-        ) => (
-          <List.Item
-            key={item.categoryId}
-            actions={[
-              <div
-                className="more"
-                style={{ display: 'grid' }}
-                key={`actions-${item.categoryId}`}
-              >
-                <Link
-                  key={`edit-${item.categoryId}`}
-                  href={`/admin/categories/edit/${item.categoryId}`}
-                  passHref
-                >
-                  Edit
-                </Link>
-                <a
-                  key={`delete-${item.categoryId}`}
-                  onClick={() => handleDelete(item.categoryId)}
-                >
-                  Delete
-                </a>
-              </div>,
-            ]}
-          >
-            <Skeleton
-              avatar
-              title={false}
-              loading={status === 'loading'}
-              active
-            >
-              <List.Item.Meta
-                style={{ alignItems: 'center' }}
-                avatar={<Avatar src={item.categoryImage} />}
-                title={
-                  <h4
-                    style={{
-                      fontSize: '0.8rem',
-                      overflow: 'auto',
-                      marginRight: '10px',
-                    }}
-                  >
-                    {item.categoryName}
-                  </h4>
-                }
-                description={`Products: ${item.numberOfProducts}`}
-              />
-            </Skeleton>
-          </List.Item>
-        )}
+      <Table
+        columns={columns}
+        dataSource={filteredList}
+        pagination={{ pageSize: 5 }}
       />
-
       <Modal
         title="Confirm Delete"
         visible={modalVisible}

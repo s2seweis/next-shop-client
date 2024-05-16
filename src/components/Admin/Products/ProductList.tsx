@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { List, Skeleton, Avatar, Modal, Input, Button, Badge } from 'antd';
+import { Table, Modal, Input, Button, Badge, Avatar, Space } from 'antd';
 import Link from 'next/link';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import {
-  fetchProducts,
-  deleteProduct,
-} from '../../../redux/slices/productSlice';
+import { fetchProducts, deleteProduct } from '../../../redux/slices/productSlice';
 import { useAppSelector, useAppDispatch } from '@/src/redux/hooks';
 
 interface Product {
@@ -14,27 +11,17 @@ interface Product {
   category: string;
 }
 
-const profilePlaceholder =
-  'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
+const profilePlaceholder = 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
 
 const ProductList: React.FC = () => {
   const dispatch = useAppDispatch();
   const products = useAppSelector((state) => state.products.products);
-
   const status = useAppSelector((state) => state.products.status);
   const [list, setList] = useState<Product[]>([]);
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [productIdToDelete, setProductIdToDelete] = useState<number | null>(
-    null,
-  );
-  console.log('line:100', productIdToDelete);
-
+  const [productIdToDelete, setProductIdToDelete] = useState<number | null>(null);
   const [searchText, setSearchText] = useState<string>('');
-  const [initLoading] = useState<boolean>(true);
-  const [, setLoading] = useState<boolean>(false); // Corrected declaration
-  const [start, setStart] = useState<number>(0);
-  const [end, setEnd] = useState<number>(3);
 
   useEffect(() => {
     if (status === 'idle') {
@@ -65,28 +52,39 @@ const ProductList: React.FC = () => {
   };
 
   const filteredList = list.filter((product) =>
-    product.productname.toLowerCase().includes(searchText.toLowerCase()),
+    product.productname.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const onLoadMore = () => {
-    setLoading(true);
-    setStart(0);
-    setEnd(end + 5);
-    setLoading(false);
-  };
-
-  const loadMore = initLoading ? (
-    <div
-      style={{
-        textAlign: 'center',
-        marginTop: 12,
-        height: 32,
-        lineHeight: '32px',
-      }}
-    >
-      <Button onClick={onLoadMore}>Load More</Button>
-    </div>
-  ) : null;
+  const columns = [
+    {
+      title: 'Image',
+      dataIndex: 'productid',
+      key: 'productid',
+      render: () => <Avatar src={profilePlaceholder} style={{ height: '50px', width: '50px' }} />,
+    },
+    {
+      title: 'Product',
+      dataIndex: 'productname',
+      key: 'productname',
+    },
+    {
+      title: 'Category',
+      dataIndex: 'category',
+      key: 'category',
+    },
+    {
+      title: 'Actions',
+      key: 'action',
+      render: (_: any, record: Product) => (
+        <Space size="middle">
+          <Link href={`/admin/products/edit/${record.productid}`} passHref>
+            Edit
+          </Link>
+          <a onClick={() => handleDelete(record.productid)}>Delete</a>
+        </Space>
+      ),
+    },
+  ];
 
   return (
     <div>
@@ -117,11 +115,8 @@ const ProductList: React.FC = () => {
           onChange={(e) => setSearchText(e.target.value)}
           style={{ maxWidth: '300px', marginRight: '10px' }}
         />
-
         <Badge overflowCount={999}>
-          <span style={{ marginRight: '10px', fontSize: '16px' }}>
-            {/* Products */}
-          </span>
+          <span style={{ marginRight: '10px', fontSize: '16px' }}></span>
           {filteredList.length > 0 && (
             <sup
               data-show="true"
@@ -142,139 +137,12 @@ const ProductList: React.FC = () => {
           <Button type="primary">Add Product</Button>
         </Link>
       </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          margin: '0px 15px',
-        }}
-      >
-        <div style={{}} key="image-picture">
-          Image
-        </div>
-        <div style={{}} key="product-name">
-          Product
-        </div>
-        <div style={{}} key="category">
-          Category
-        </div>
-        <div style={{}} key="category">
-          More
-        </div>
-      </div>
-
-      {/* <List
-        className="demo-loadmore-list"
-        itemLayout="horizontal"
-        dataSource={filteredList.slice(start, end)}
-        loadMore={loadMore}
-        renderItem={(item) => (
-          <List.Item
-            actions={[
-              <div className="more" style={{ display: 'grid' }}>
-                <Link
-                  key="list-loadmore-edit"
-                  href={`/admin/products/edit/${item.productid}`}
-                  passHref
-                >
-                  Edit
-                </Link>
-                <a
-                  key="list-loadmore-more"
-                  onClick={() => handleDelete(item.productid)}
-                >
-                  Delete
-                </a>
-              </div>,
-            ]}
-          >
-            <Skeleton
-              avatar
-              title={false}
-              loading={status === 'loading'}
-              active
-            >
-              <List.Item.Meta
-                style={{ alignItems: 'center' }}
-                avatar={<Avatar src={profilePlaceholder} />}
-                title={
-                  <h4
-                    style={{
-                      fontSize: '0.8rem',
-                      overflow: 'auto',
-                      marginRight: '10px',
-                    }}
-                  >
-                    {item.productname}
-                  </h4>
-                }
-              />
-              <div>{item.category}</div>
-            </Skeleton>
-          </List.Item>
-        )}
-      /> */}
-
-      <List
-        className="demo-loadmore-list"
-        itemLayout="horizontal"
-        dataSource={filteredList.slice(start, end)}
-        loadMore={loadMore}
-        renderItem={(
-          item,
-          _index, // index added for key if necessary
-        ) => (
-          <List.Item
-            key={item.productid} // Ensuring each List.Item has a unique key
-            actions={[
-              <div
-                className="more"
-                style={{ display: 'grid' }}
-                key={`actions-${item.productid}`}
-              >
-                <Link
-                  key={`edit-${item.productid}`} // key is redundant here due to single usage in Link
-                  href={`/admin/products/edit/${item.productid}`}
-                  passHref
-                >
-                  Edit
-                </Link>
-                <a
-                  key={`delete-${item.productid}`} // key is redundant here due to single usage in Link
-                  onClick={() => handleDelete(item.productid)}
-                >
-                  Delete
-                </a>
-              </div>,
-            ]}
-          >
-            <Skeleton
-              avatar
-              title={false}
-              loading={status === 'loading'}
-              active
-            >
-              <List.Item.Meta
-                style={{ alignItems: 'center' }}
-                avatar={<Avatar src={profilePlaceholder} />}
-                title={
-                  <h4
-                    style={{
-                      fontSize: '0.8rem',
-                      overflow: 'auto',
-                      marginRight: '10px',
-                    }}
-                  >
-                    {item.productname}
-                  </h4>
-                }
-                description={item.category}
-              />
-            </Skeleton>
-          </List.Item>
-        )}
+      <Table
+        columns={columns}
+        dataSource={filteredList}
+        pagination={{ pageSize: 5 }}
+        rowKey="productid"
       />
-
       <Modal
         title="Confirm Delete"
         visible={modalVisible}

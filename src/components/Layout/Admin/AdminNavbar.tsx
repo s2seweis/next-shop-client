@@ -27,7 +27,7 @@ const AdminNavbar: React.FC = () => {
             {isSidebarOpen ? <FaTimes /> : <FaBars />}
           </div>
           <div className={styles.titleContainer}>
-          <h3>Admin Area</h3>
+          <h3>Admin </h3>
           </div>
           <DropdownNotification/>
         </div>

@@ -6,6 +6,7 @@ interface Category {
   categoryName: string;
   categoryImage: string;
   numberOfProducts: number;
+  key: string;
 }
 
 interface CategoryState {
@@ -47,24 +48,23 @@ export const fetchCategoryById = createAsyncThunk<Category, string>(
   },
 );
 
-export const deleteCategory = createAsyncThunk<number, number>(
+export const deleteCategory = createAsyncThunk<void, { categoryId: number; key: string }>(
   'categories/deleteCategory',
-  async (categoryId) => {
+  async ({ categoryId, key }) => {
     try {
-      await axios.delete(`https://next-shop-server-aafff1b333cc.herokuapp.com/category/${categoryId}`);
-      return categoryId;
+      await axios.delete(`http://localhost:3005/category/${categoryId}`, { data: { key } });
+      // await axios.delete(`https://next-shop-server-aafff1b333cc.herokuapp.com/category/${categoryId}`, { data: { key } });
     } catch (error) {
       throw new Error('Failed to delete category');
     }
   },
 );
 
-
 export const addCategory = createAsyncThunk<Category, any>(
   'categories/addCategory',
   async (data) => {
     console.log("line:1000", data);
-    
+
     try {
       const response = await axios.post<Category>('http://localhost:3005/category', data, {
         headers: {
@@ -77,7 +77,6 @@ export const addCategory = createAsyncThunk<Category, any>(
     }
   },
 );
-
 
 export const updateCategory = createAsyncThunk<Category, { categoryId: number, updatedData: any }>(
   'categories/updateCategory',
@@ -112,8 +111,9 @@ const categorySlice = createSlice({
         state.status = 'failed';
         state.error = action.error.message || 'Failed to fetch categories';
       })
-      .addCase(deleteCategory.fulfilled, (state, action: PayloadAction<number>) => {
-        state.categories = state.categories.filter((category) => category.categoryId !== action.payload);
+      .addCase(deleteCategory.fulfilled, (state, action) => {
+        const { categoryId } = action.meta.arg;
+        state.categories = state.categories.filter((category) => category.categoryId !== categoryId);
       })
       .addCase(addCategory.fulfilled, (state, action: PayloadAction<Category>) => {
         state.categories.push(action.payload);
