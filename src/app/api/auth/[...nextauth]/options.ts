@@ -5,8 +5,8 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
 import FacebookProvider from "next-auth/providers/facebook";
 
-const loginRouteLocal = 'http://localhost:3005'; 
-// const loginRouteDeployed = 'https://next-shop-server-aafff1b333cc.herokuapp.com'; 
+// const loginRouteLocal = 'http://localhost:3005'; 
+const loginRouteDeployed = 'https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com'; 
 
 interface ProfileWithDummyData extends Profile {
   dummyData?: { userId: string };
@@ -45,7 +45,8 @@ export const options: NextAuthOptions = {
 
         try {
           // Make Axios request to login route
-            const response = await axios.post(`${loginRouteLocal}/login`, {
+            const response = await axios.post(`${loginRouteDeployed}/login`, {
+            // const response = await axios.post(`${loginRouteLocal}/login`, {
             email,
             password,
           });
@@ -126,7 +127,7 @@ export const options: NextAuthOptions = {
         const profileName = profile?.name;
     
         // Make a POST request to your API route
-        const response = await axios.post('https://next-shop-server-aafff1b333cc.herokuapp.com/register-oauth', {
+        const response = await axios.post('https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/register-oauth', {
         // const response = await axios.post('http://localhost:3005/register-oauth', {
           email: profileEmail,
           full_name: profileName

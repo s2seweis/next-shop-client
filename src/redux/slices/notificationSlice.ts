@@ -29,7 +29,8 @@ export const markNotificationsAsRead = createAsyncThunk<void>(
     'notifications/markNotificationsAsRead',
     async () => {
       try {
-        await axios.post<void>('http://localhost:3005/notification/read');
+        // await axios.post<void>('http://localhost:3005/notification/read');
+        await axios.post<void>('https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/notification/read');
       } catch (error) {
         throw new Error('Failed to mark notifications as read');
       }
@@ -41,7 +42,8 @@ export const fetchNotifications = createAsyncThunk<Notification[]>(
     'notifications/fetchNotifications',
     async () => {
         try {
-            const response = await axios.get<Notification[]>('http://localhost:3005/notification');
+            const response = await axios.get<Notification[]>('https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/notification');
+            // const response = await axios.get<Notification[]>('http://localhost:3005/notification');
             return response.data;
         } catch (error) {
             throw new Error('Failed to fetch notifications');
@@ -56,7 +58,7 @@ export const addNotification = createAsyncThunk<Notification, Notification>(
         
         try {
             // Assuming you have an endpoint to add a new notification
-            const response = await axios.post<Notification>('https://your-api-url/add-notification', notification);
+            const response = await axios.post<Notification>('https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/add-notification', notification);
             return response.data;
         } catch (error) {
             return thunkAPI.rejectWithValue('Failed to add notification');

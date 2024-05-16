@@ -18,7 +18,7 @@ export const fetchPassword = createAsyncThunk(
   async (userId: string) => {
     try {
       const response = await axios.get<string>(
-        `https://next-shop-server-aafff1b333cc.herokuapp.com/password/${userId}`,
+        `https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/password/${userId}`,
       );
       return response.data;
     } catch (error) {
@@ -37,7 +37,7 @@ export const updatePassword = createAsyncThunk(
   async ({ userId, formData }: UpdatePasswordPayload) => {
     try {
       const response = await axios.put<string>(
-        `https://next-shop-server-aafff1b333cc.herokuapp.com/password/${userId}`,
+        `https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/password/${userId}`,
         formData,
       );
       return response.data;

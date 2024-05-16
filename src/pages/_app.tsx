@@ -61,7 +61,8 @@ const App: React.FC<AppProps> = ({ Component }) => {
               messageId: messageId,
             };
 
-            await axios.post('http://localhost:3005/notification', requestData);
+            await axios.post('https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/notification', requestData);
+            // await axios.post('http://localhost:3005/notification', requestData);
             location.reload(); // This reloads the current URL
           } catch (error) {
             console.error('Failed to send notification data:', error);
@@ -93,7 +94,8 @@ const App: React.FC<AppProps> = ({ Component }) => {
               messageId: payload.messageId || messageId,
             };
 
-            await axios.post('http://localhost:3005/notification', requestData);
+            await axios.post('https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/notification', requestData);
+            // await axios.post('http://localhost:3005/notification', requestData);
             location.reload(); // This reloads the current URL
           } catch (error) {
             console.error('Failed to send notification data:', error);

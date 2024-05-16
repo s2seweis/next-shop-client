@@ -25,7 +25,7 @@ export const fetchProducts = createAsyncThunk<Product[]>(
   'products/fetchProducts',
   async () => {
     try {
-      const response = await axios.get<Product[]>('https://next-shop-server-aafff1b333cc.herokuapp.com/product');
+      const response = await axios.get<Product[]>('https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/product');
       console.log("line:500", response);
       
       return response.data;
@@ -41,7 +41,7 @@ export const fetchProductById = createAsyncThunk<Product, string>(
   'products/fetchProductById',
   async (productId) => {
     try {
-      const response = await axios.get<Product>(`https://next-shop-server-aafff1b333cc.herokuapp.com/product/${productId}`);
+      const response = await axios.get<Product>(`https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/product/${productId}`);
       return response.data;
     } catch (error) {
       throw new Error('Failed to fetch product by ID');
@@ -57,7 +57,7 @@ export const deleteProduct = createAsyncThunk<number, number>(
     console.log("line:999", productid);
     
     try {
-      await axios.delete(`https://next-shop-server-aafff1b333cc.herokuapp.com/product/${productid}`);
+      await axios.delete(`https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/product/${productid}`);
       return productid;
     } catch (error) {
       throw new Error('Failed to delete product');
@@ -69,7 +69,7 @@ export const addProduct = createAsyncThunk<Product, any>(
   'products/addProduct',
   async (data) => {
     try {
-      const response = await axios.post<Product>('https://next-shop-server-aafff1b333cc.herokuapp.com/product', data);
+      const response = await axios.post<Product>('https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/product', data);
       return response.data;
     } catch (error) {
       throw new Error('Failed to add product');
@@ -81,7 +81,7 @@ export const updateProduct = createAsyncThunk<Product, { productid: string, upda
   'products/updateProduct',
   async ({ productid, updatedData }) => {
     try {
-      const response = await axios.put<Product>(`https://next-shop-server-aafff1b333cc.herokuapp.com/product/${productid}`, updatedData);
+      const response = await axios.put<Product>(`https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/product/${productid}`, updatedData);
       return response.data;
     } catch (error) {
       throw new Error('Failed to update product');

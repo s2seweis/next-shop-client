@@ -20,7 +20,7 @@ export const fetchUserPreference = createAsyncThunk(
     
     try {
       const response = await axios.get<any>(
-        `https://next-shop-server-aafff1b333cc.herokuapp.com/user-preference/${userId}`,
+        `https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/user-preference/${userId}`,
 
       );
       console.log("line:555 - #############", response);
@@ -42,7 +42,7 @@ export const updateUserPreference = createAsyncThunk(
   async ({ userId, formData }: UpdateUserPreferencePayload) => {
     try {
       const response = await axios.put<any>(
-        `https://next-shop-server-aafff1b333cc.herokuapp.com/user-preference/${userId}`,
+        `https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/user-preference/${userId}`,
         formData,
       );
       return response.data;

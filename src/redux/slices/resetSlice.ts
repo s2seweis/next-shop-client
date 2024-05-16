@@ -16,7 +16,8 @@ export const requestResetPassword = createAsyncThunk(
   'reset/requestResetPassword',
   async (reqObj: any) => {
     try {
-      const response = await axios.post('http://localhost:3005/requestResetPassword', reqObj);
+      const response = await axios.post('https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/requestResetPassword', reqObj);
+      // const response = await axios.post('http://localhost:3005/requestResetPassword', reqObj);
       message.success('Go and check your emails for the reset link');
       setTimeout(() => {
         window.location.href = '/reset/ResetMessage';
@@ -36,7 +37,8 @@ export const resetPassword = createAsyncThunk(
     console.log("line:500", reqObj);
     
     try {
-      const response = await axios.post('http://localhost:3005/resetPassword', reqObj);
+      const response = await axios.post('https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/resetPassword', reqObj);
+      // const response = await axios.post('http://localhost:3005/resetPassword', reqObj);
       message.success('The Password changed successfully !!');
       setTimeout(() => {
         window.location.href = '/reset/SuccessMessage';

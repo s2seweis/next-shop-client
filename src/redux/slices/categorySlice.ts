@@ -25,8 +25,8 @@ export const fetchCategories = createAsyncThunk<Category[]>(
   'categories/fetchCategories',
   async () => {
     try {
-      const response = await axios.get<Category[]>('http://localhost:3005/categories');
-      // const response = await axios.get<Category[]>('https://next-shop-server-aafff1b333cc.herokuapp.com/categories');
+      // const response = await axios.get<Category[]>('http://localhost:3005/categories');
+      const response = await axios.get<Category[]>('https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/categories');
       console.log("line:100", response);
       return response.data;
 
@@ -40,7 +40,7 @@ export const fetchCategoryById = createAsyncThunk<Category, string>(
   'categories/fetchCategoryById',
   async (categoryId) => {
     try {
-      const response = await axios.get<Category>(`https://next-shop-server-aafff1b333cc.herokuapp.com/category/${categoryId}`);
+      const response = await axios.get<Category>(`https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/category/${categoryId}`);
       return response.data;
     } catch (error) {
       throw new Error('Failed to fetch category by ID');
@@ -52,8 +52,8 @@ export const deleteCategory = createAsyncThunk<void, { categoryId: number; key: 
   'categories/deleteCategory',
   async ({ categoryId, key }) => {
     try {
-      await axios.delete(`http://localhost:3005/category/${categoryId}`, { data: { key } });
-      // await axios.delete(`https://next-shop-server-aafff1b333cc.herokuapp.com/category/${categoryId}`, { data: { key } });
+      // await axios.delete(`http://localhost:3005/category/${categoryId}`, { data: { key } });
+      await axios.delete(`https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/category/${categoryId}`, { data: { key } });
     } catch (error) {
       throw new Error('Failed to delete category');
     }
@@ -66,7 +66,8 @@ export const addCategory = createAsyncThunk<Category, any>(
     console.log("line:1000", data);
 
     try {
-      const response = await axios.post<Category>('http://localhost:3005/category', data, {
+      const response = await axios.post<Category>('https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/category', data, {
+      // const response = await axios.post<Category>('http://localhost:3005/category', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -85,8 +86,8 @@ export const updateCategory = createAsyncThunk<Category, { categoryId: number, u
     console.log("Line:200", updatedData);
 
     try {
-      const response = await axios.put<Category>(`http://localhost:3005/category/${categoryId}`, updatedData);
-      // const response = await axios.put<Category>(`https://next-shop-server-aafff1b333cc.herokuapp.com/category/${categoryId}`, updatedData);
+      // const response = await axios.put<Category>(`http://localhost:3005/category/${categoryId}`, updatedData);
+      const response = await axios.put<Category>(`https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/category/${categoryId}`, updatedData);
       return response.data;
     } catch (error) {
       throw new Error('Failed to update category');
