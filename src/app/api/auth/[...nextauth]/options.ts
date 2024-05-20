@@ -4,15 +4,25 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
 import FacebookProvider from "next-auth/providers/facebook";
+// ###
+import dotenv from 'dotenv';
+dotenv.config();
 
-// const loginRouteLocal = 'http://localhost:3005'; 
-const loginRouteDeployed = 'https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com'; 
+const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+const fullURL = `${baseURL}/login`;
+// *works
+
+const oauthURL = process.env.NEXT_PUBLIC_OAUTH;
+const fullOauthURL = `${oauthURL}/register-oauth`;
+// *works
 
 interface ProfileWithDummyData extends Profile {
   dummyData?: { userId: string };
 }
 
 export const options: NextAuthOptions = {
+
+  
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_ID as string,
@@ -45,15 +55,11 @@ export const options: NextAuthOptions = {
 
         try {
           // Make Axios request to login route
-            const response = await axios.post(`${loginRouteDeployed}/login`, {
-            // const response = await axios.post(`${loginRouteLocal}/login`, {
+            const response = await axios.post(`${fullURL}`, {
             email,
             password,
           });
-
-          console.log("line:200-#####################", response);
           
-
           // Check if the response is successful
           if (response.data) {
             return {
@@ -127,8 +133,7 @@ export const options: NextAuthOptions = {
         const profileName = profile?.name;
     
         // Make a POST request to your API route
-        const response = await axios.post('https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/register-oauth', {
-        // const response = await axios.post('http://localhost:3005/register-oauth', {
+          const response = await axios.post(`${fullOauthURL}`, {
           email: profileEmail,
           full_name: profileName
         });

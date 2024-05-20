@@ -1,5 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+// ### - Test
+import dotenv from 'dotenv';
+dotenv.config();
+// ###
 
 interface UserPreferenceState {
   userPreference: any; // Adjust this to match your user preference type
@@ -16,15 +20,14 @@ const initialState: UserPreferenceState = {
 export const fetchUserPreference = createAsyncThunk(
   'userPreference/fetchUserPreference',
   async (userId: string) => {
-    console.log("line:554 - #############", userId);
-    
+
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+    const fullURL = `${baseURL}`;
+    // *works    
     try {
       const response = await axios.get<any>(
-        `https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/user-preference/${userId}`,
-
-      );
-      console.log("line:555 - #############", response);
-      
+        `${fullURL}/user-preference/${userId}`,
+      );      
       return response.data;
     } catch (error) {
       throw new Error('Failed to fetch user profile');
@@ -40,9 +43,14 @@ interface UpdateUserPreferencePayload {
 export const updateUserPreference = createAsyncThunk(
   'userPreference/updateUserPreference',
   async ({ userId, formData }: UpdateUserPreferencePayload) => {
+
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+    const fullURL = `${baseURL}`;
+    // *works
+
     try {
       const response = await axios.put<any>(
-        `https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/user-preference/${userId}`,
+        `${fullURL}/user-preference/${userId}`,
         formData,
       );
       return response.data;

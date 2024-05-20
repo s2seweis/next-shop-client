@@ -13,10 +13,19 @@ import axios from 'axios'; // Import Axios
 import { v4 as uuidv4 } from 'uuid'; // Import uuid for generating unique IDs
 import { onMessage } from 'firebase/messaging';
 import '../styles/scss/global/global.scss';
+// ### - Test
+import dotenv from 'dotenv';
+dotenv.config();
+// ###
 
 interface AppProps {
   Component: React.ComponentType<any>;
 }
+
+const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+const fullURL = `${baseURL}/notification`;
+// *works
+
 
 const App: React.FC<AppProps> = ({ Component }) => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -61,8 +70,7 @@ const App: React.FC<AppProps> = ({ Component }) => {
               messageId: messageId,
             };
 
-            await axios.post('https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/notification', requestData);
-            // await axios.post('http://localhost:3005/notification', requestData);
+            await axios.post(`${fullURL}`, requestData);
             location.reload(); // This reloads the current URL
           } catch (error) {
             console.error('Failed to send notification data:', error);
@@ -94,8 +102,7 @@ const App: React.FC<AppProps> = ({ Component }) => {
               messageId: payload.messageId || messageId,
             };
 
-            await axios.post('https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/notification', requestData);
-            // await axios.post('http://localhost:3005/notification', requestData);
+            await axios.post(`${fullURL}`, requestData);
             location.reload(); // This reloads the current URL
           } catch (error) {
             console.error('Failed to send notification data:', error);
@@ -118,7 +125,7 @@ const App: React.FC<AppProps> = ({ Component }) => {
       navigator.serviceWorker
         .register('/service-worker.js')
         .then((registration) => {
-          console.log('Service worker registered:', registration);
+          // console.log('Service worker registered:', registration);
         });
     }
   }, []);

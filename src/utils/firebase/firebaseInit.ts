@@ -1,6 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 import { Messaging, getMessaging, getToken } from 'firebase/messaging';
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAzPddnPIkhCeeO-UaAPkR48cW4ZXAS9qE',
@@ -12,6 +14,16 @@ const firebaseConfig = {
   measurementId: 'G-SWFC6R7ME5',
 };
 
+// const firebaseConfig{
+//   apiKey: process.env.FIREBASE_API_KEY,
+//   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+//   projectId: process.env.FIREBASE_PROJECT_ID,
+//   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+//   messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+//   appId: process.env.FIREBASE_APP_ID,
+//   measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+// };
+
 let messaging: Messaging | null = null;
 
 if (typeof window !== 'undefined') {
@@ -20,22 +32,6 @@ if (typeof window !== 'undefined') {
 }
 
 export { messaging }; // Export the messaging instance
-
-// export const generateToken = async () => {
-//   if (typeof window !== 'undefined') {
-//     const permission = await Notification.requestPermission();
-//     // console.log('Notification permission:', permission);
-
-//     if (permission === 'granted' && messaging) {
-//       const token = await getToken(messaging, {
-//         vapidKey: 'BLbNFs5G-dMSMk1dMHh0Sb8c5x95il0jZjoSgndS4piIaoufvxcONwrqLaSVkPCCmAXAlxdVl7K6KwxxvcSszLM',
-//       });
-//       console.log('Firebase Messaging token:', token);
-//     }
-//   } else {
-//     console.warn('generateToken is only executed in the browser environment.');
-//   }
-// };
 
 export const generateToken = async () => {
   if (typeof window !== 'undefined' && messaging) {

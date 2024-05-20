@@ -5,11 +5,10 @@ import Sidebar from '../Public/Sidebar';
 import { SidebarProvider } from '../../../utils/context/SidebarContext';
 import styles from '../../../styles/scss/layout/admin/AdminLayout.module.scss';
 import Footer from '../Admin/FooterAdmin';
+// import { Playground } from './AdminSidebar/Playground';
 
 interface AdminLayoutProps {
   children: ReactNode;
-  // login: boolean; // Assuming login is a boolean
-  // isAuth: boolean; // Assuming isAuth is a boolean
 }
 
 const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
@@ -22,14 +21,13 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
         height:"auto"
         }}>
         <AdminSidebar />
+        {/* <Playground/> */}
         <Sidebar/>
+        
         <main
           className={styles.content}
           style={{
-            // minHeight: '100vh',
             margin: '15px 5px',
-            // position: 'absolute',
-            // marginLeft: '69px',
             width: 'calc(100% - 69px)', // Adjusting width to accommodate scrollbar
             overflowX: 'auto', // Make the content scrollable horizontally
             overflowY: 'hidden', // Disable vertical scrolling

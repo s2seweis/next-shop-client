@@ -21,7 +21,7 @@ interface ProfileComponentProps {
 const ProfileComponent: React.FC<ProfileComponentProps> = ({ userId }) => {
   const dispatch = useAppDispatch();
 
-  const userProfile = useAppSelector((state) => state.profile.userProfile) as UserProfile | null;
+  const userProfile = useAppSelector((state) => state.profile.userProfile) as UserProfile | null;  
   const status = useAppSelector((state) => state.profile.status);
   const error = useAppSelector((state) => state.profile.error);
 

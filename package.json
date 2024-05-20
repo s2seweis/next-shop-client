@@ -36,6 +36,7 @@
     "@types/redux-logger": "^3.0.13",
     "antd": "^5.16.1",
     "axios": "^1.6.7",
+    "dotenv": "^16.4.5",
     "firebase": "^10.11.1",
     "formik": "^2.4.6",
     "js-cookie": "^3.0.5",

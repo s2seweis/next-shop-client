@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Modal, Input, Button, Badge, Avatar, Space} from 'antd';
+import { Table, Modal, Input, Button, Badge, Avatar, Space } from 'antd';
 import Link from 'next/link';
 import { ArrowLeftOutlined, ReloadOutlined } from '@ant-design/icons';
 import { fetchCategories, deleteCategory } from '../../../redux/slices/categorySlice';
@@ -10,7 +10,7 @@ interface Category {
   categoryName: string;
   categoryImage: string;
   numberOfProducts: number;
-  key: string;
+  key?: string;
 }
 
 const CategoryList: React.FC = () => {
@@ -22,46 +22,53 @@ const CategoryList: React.FC = () => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [categoryIdToDelete, setCategoryIdToDelete] = useState<number | null>(null);
   const [keyToDelete, setKeyToDelete] = useState<string | null>(null);
-
   const [searchText, setSearchText] = useState<string>('');
 
   useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchCategories());
-    } else if (status === 'succeeded') {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (status === 'succeeded') {
       setList(categories);
     }
-  }, [dispatch, status, categories]);
+  }, [status, categories]);
 
-  const handleDelete = (categoryId: number, _key: string) => {
+  const handleDelete = (categoryId: number, key?: string) => {
     setModalVisible(true);
     setCategoryIdToDelete(categoryId);
-    setKeyToDelete(_key);
+    setKeyToDelete(key || null);
   };
 
   const handleConfirmDelete = () => {
-    if (categoryIdToDelete !== null && keyToDelete !== null) {
+    if (categoryIdToDelete !== null) {
       setConfirmLoading(true);
-      dispatch(deleteCategory({ categoryId: categoryIdToDelete, key: keyToDelete })).then(() => {
-        setConfirmLoading(false);
-        setModalVisible(false);
-      });
+      dispatch(deleteCategory({ categoryId: categoryIdToDelete, key: keyToDelete }))
+        .then(() => {
+          setConfirmLoading(false);
+          setModalVisible(false);
+          dispatch(fetchCategories()); // Fetch categories again after deletion
+        });
     }
   };
 
   const handleCancelDelete = () => {
     setModalVisible(false);
     setCategoryIdToDelete(null);
+    setKeyToDelete(null);
   };
-
-  const filteredList = list.filter((category) => {
-    return category.categoryName &&
-      category.categoryName.toLowerCase().includes(searchText.toLowerCase());
-  });
 
   const handleRefresh = () => {
     dispatch(fetchCategories());
   };
+
+  // const filteredList = list.filter((category) => 
+  //   category.categoryName.toLowerCase().includes(searchText.toLowerCase())
+  // );
+
+  const filteredList = list.filter((category) => {
+    return category.categoryName && category.categoryName.toLowerCase().includes(searchText.toLowerCase());
+  });
 
   const columns = [
     {
@@ -121,7 +128,7 @@ const CategoryList: React.FC = () => {
           placeholder="Category Name ..."
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
-          style={{ maxWidth: '300px', marginRight: '0px', minWidth:"100px" }}
+          style={{ maxWidth: '300px', marginRight: '10px' }}
         />
         <Badge overflowCount={999}>
           <span style={{ marginRight: '10px', fontSize: '16px' }}></span>

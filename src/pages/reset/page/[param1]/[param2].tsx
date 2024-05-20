@@ -9,11 +9,8 @@ interface PasswordResetProps {}
 
 const PasswordReset: React.FC<PasswordResetProps> = () => {
     const dispatch = useAppDispatch();
-    const [token, setToken] = useState<string>('');
-    console.log("line:100", token);
-    
+    const [token, setToken] = useState<string>('');    
     const [userId, setUserId] = useState<string>('');
-    console.log("line:200", userId);
     const [loading] = useState<boolean>(false);
     
     useEffect(() => {
@@ -36,7 +33,7 @@ const PasswordReset: React.FC<PasswordResetProps> = () => {
     const [form] = Form.useForm();
     
     const onFinish = (values: any) => {
-        console.log("line:300", values);
+        // console.log("line:300", values);
         dispatch(resetPassword(values));
         // Dispatch reset password action
     };

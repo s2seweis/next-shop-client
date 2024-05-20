@@ -21,9 +21,7 @@ interface UserWithUserId extends User {
 }
 
 const PreferenceTab: React.FC = () => {
-  const { data: session } = useSession(); // Retrieve session information
-  console.log("line:1",session );
-  
+  const { data: session } = useSession(); // Retrieve session information  
   const router = useRouter();
 
   useEffect(() => {

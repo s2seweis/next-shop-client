@@ -1,5 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+// ### - Test
+import dotenv from 'dotenv';
+dotenv.config();
+// ###
 
 interface Product {
   price: string;
@@ -24,10 +28,15 @@ const initialState: ProductState = {
 export const fetchProducts = createAsyncThunk<Product[]>(
   'products/fetchProducts',
   async () => {
+
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+    const fullURL = `${baseURL}`;
+    // *works
+
     try {
-      const response = await axios.get<Product[]>('https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/product');
-      console.log("line:500", response);
-      
+      const response = await axios.get<Product[]>(
+        `${fullURL}/product`,
+      );      
       return response.data;
     } catch (error) {
       throw new Error('Failed to fetch products');
@@ -40,8 +49,15 @@ export const fetchProducts = createAsyncThunk<Product[]>(
 export const fetchProductById = createAsyncThunk<Product, string>(
   'products/fetchProductById',
   async (productId) => {
+
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+    const fullURL = `${baseURL}`;
+    // *works
+
     try {
-      const response = await axios.get<Product>(`https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/product/${productId}`);
+      const response = await axios.get<Product>(
+        `${fullURL}/product/${productId}`,
+      );
       return response.data;
     } catch (error) {
       throw new Error('Failed to fetch product by ID');
@@ -54,10 +70,15 @@ export const fetchProductById = createAsyncThunk<Product, string>(
 export const deleteProduct = createAsyncThunk<number, number>(
   'products/deleteProduct',
   async (productid) => {
-    console.log("line:999", productid);
+
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+    const fullURL = `${baseURL}`;
+    // *works
     
     try {
-      await axios.delete(`https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/product/${productid}`);
+      await axios.delete(
+        `${fullURL}/product/${productid}`,
+      );
       return productid;
     } catch (error) {
       throw new Error('Failed to delete product');
@@ -68,8 +89,18 @@ export const deleteProduct = createAsyncThunk<number, number>(
 export const addProduct = createAsyncThunk<Product, any>(
   'products/addProduct',
   async (data) => {
+
+    console.log("line:100", data);
+    
+
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+    const fullURL = `${baseURL}`;
+    // *works
+
     try {
-      const response = await axios.post<Product>('https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/product', data);
+      const response = await axios.post<Product>(
+        `${fullURL}/product`
+        , data);
       return response.data;
     } catch (error) {
       throw new Error('Failed to add product');
@@ -80,8 +111,15 @@ export const addProduct = createAsyncThunk<Product, any>(
 export const updateProduct = createAsyncThunk<Product, { productid: string, updatedData: any }>(
   'products/updateProduct',
   async ({ productid, updatedData }) => {
+
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+    const fullURL = `${baseURL}`;
+    // *works
+
     try {
-      const response = await axios.put<Product>(`https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/product/${productid}`, updatedData);
+      const response = await axios.put<Product>(
+        `${fullURL}/product/${productid}`
+        , updatedData);
       return response.data;
     } catch (error) {
       throw new Error('Failed to update product');

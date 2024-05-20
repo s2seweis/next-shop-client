@@ -24,25 +24,25 @@
 
     }
 
-    @media (min-width: 768px) {
-      .ant-list-items {
-        grid-template-columns: repeat(12, 1fr);
-      }
+    // @media (min-width: 768px) {
+    //   .ant-list-items {
+    //     grid-template-columns: repeat(12, 1fr);
+    //   }
 
-      .item-image {
-        grid-column: 1 / span 1;
-      }
-      .item-category {
-        grid-column: 1 / span 1;
-      }
-      .item-products {
-        grid-column: 1 / span 1;
-      }
-      .item-more {
-        grid-column: 1 / span 1;
-      }
+    //   .item-image {
+    //     grid-column: 1 / span 1;
+    //   }
+    //   .item-category {
+    //     grid-column: 1 / span 1;
+    //   }
+    //   .item-products {
+    //     grid-column: 1 / span 1;
+    //   }
+    //   .item-more {
+    //     grid-column: 1 / span 1;
+    //   }
 
-    }
+    // }
 
     @media (min-width: 1024px) {
       .ant-list-items {

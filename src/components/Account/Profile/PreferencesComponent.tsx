@@ -16,15 +16,10 @@ interface ProfileComponentProps {
 // }
 
   const PreferenceComponent: React.FC<ProfileComponentProps> = ({ userId }) => {
-    console.log("line:100", userId);
-    
   const dispatch = useAppDispatch();
   const userPreference = useAppSelector((state) => state.preference.userPreference);  
-  console.log("line:1", userPreference);
   const status = useAppSelector((state) => state.profile.status);
-  console.log("line:2", status);
   const error = useAppSelector((state) => state.preference.error);  
-  console.log("line:3", error);
   // State to manage form data
   const [formData, setFormData] = useState({
     language: '',

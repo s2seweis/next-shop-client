@@ -2,17 +2,13 @@ import Nav from '@/src/components/Nav/Nav';
 import Layout from '../../components/Layout/Public/Layout';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useSession } from 'next-auth/react';
+// import { useSession } from 'next-auth/react';
 import { useAppSelector } from '@/src/redux/hooks';
 
 const Checkout = () => {
   const userProfile = useAppSelector((state) => state.profile.userProfile);
-  const { data: session } = useSession();
-  console.log("line: 500", session);
-
+  // const { data: session } = useSession();
   const key = userProfile?.role;
-  console.log("line: 501", key);
-
   const router = useRouter();
 
   useEffect(() => {

@@ -12,7 +12,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
     const [loading] = React.useState<boolean>(false);
 
     const onFinish = (values: any) => {
-        console.log("line:100", values);
+        // console.log("line:100", values);
         dispatch(requestResetPassword(values));
     };
 

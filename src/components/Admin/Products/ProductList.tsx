@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Modal, Input, Button, Badge, Avatar, Space } from 'antd';
 import Link from 'next/link';
-import { ArrowLeftOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, ReloadOutlined } from '@ant-design/icons';
 import { fetchProducts, deleteProduct } from '../../../redux/slices/productSlice';
 import { useAppSelector, useAppDispatch } from '@/src/redux/hooks';
 
@@ -16,6 +16,7 @@ const profilePlaceholder = 'https://upload.wikimedia.org/wikipedia/commons/8/89/
 const ProductList: React.FC = () => {
   const dispatch = useAppDispatch();
   const products = useAppSelector((state) => state.products.products);
+  console.log("line:1000", products);
   const status = useAppSelector((state) => state.products.status);
   const [list, setList] = useState<Product[]>([]);
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
@@ -49,6 +50,10 @@ const ProductList: React.FC = () => {
   const handleCancelDelete = () => {
     setModalVisible(false);
     setProductIdToDelete(null);
+  };
+
+  const handleRefresh = () => {
+    dispatch(fetchProducts());
   };
 
   const filteredList = list.filter((product) =>
@@ -133,9 +138,15 @@ const ProductList: React.FC = () => {
             </sup>
           )}
         </Badge>
-        <Link href="/admin/products/add" passHref>
+        <Link href="/admin/products/AddProduct" passHref>
           <Button type="primary">Add Product</Button>
         </Link>
+        <Button
+          style={{ minWidth: '40px', marginRight: '10px', marginLeft: '10px' }}
+          type="default"
+          icon={<ReloadOutlined />}
+          onClick={handleRefresh}
+        />
       </div>
       <Table
         columns={columns}

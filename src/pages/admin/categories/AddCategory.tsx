@@ -6,6 +6,7 @@ import { Formik } from 'formik';
 import Link from 'next/link';
 import AdminLayout from '@/src/components/Layout/Admin/AdminLayout';
 import { AppDispatch } from '@/src/redux/store'; // import your AppDispatch type
+import { notification } from 'antd';
 
 const { Title } = Typography;
 
@@ -33,14 +34,38 @@ const AddCategoryPage: React.FC = () => {
   };
 
   const handleSubmit = (values: FormValues) => {
-    const formData = new FormData();
-    formData.append('category_name', values.category_name);
-    formData.append('number_of_products', values.number_of_products.toString());
-    if (imageData) {
-      formData.append('category_image', imageData);
-    }
 
-    dispatch(addCategory(formData));
+    // ###
+
+    const data = {
+      ...values,
+      category_image: imageData,
+    };
+    console.log('line:1', data);
+
+    // ###
+
+    // const formData = new FormData();
+    // formData.append('category_name', values.category_name);
+    // formData.append('number_of_products', values.number_of_products.toString());
+    // if (imageData) {
+    //   formData.append('category_image', imageData);
+    // }
+
+    // console.log('line:2', formData);
+
+
+    // dispatch(addCategory(data));
+    // // dispatch(addCategory(formData));
+
+    dispatch(addCategory(data)).then((resultAction) => {
+      if (addCategory.fulfilled.match(resultAction)) {
+        notification.success({
+          message: 'Category Added',
+          description: 'The category was successfully added.',
+        });
+      }
+    });
   };
 
   return (

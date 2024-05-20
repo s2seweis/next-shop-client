@@ -23,7 +23,6 @@ interface UserWithUserId extends User {
 
 const Home: React.FC = () => {
   const { data: session } = useSession(); // Retrieve session information  
-  // console.log("line:100", session);
   
   const dispatch = useAppDispatch();
   const status = useAppSelector((state: RootState) => state.profile.status);

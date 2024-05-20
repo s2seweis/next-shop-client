@@ -11,10 +11,8 @@ import styles from '../../../styles/scss/components/test/Counter.module.scss';
 
 export function Counter() {
   const count = useAppSelector(selectCount);
-  console.log('line:100', count);
   const dispatch = useAppDispatch();
   const [incrementAmount, setIncrementAmount] = useState<string>('2');
-  console.log('line:200', incrementAmount);
 
   return (
     <div>

@@ -1,5 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+// ### - Test
+import dotenv from 'dotenv';
+dotenv.config();
+// ###
 
 export interface PreferenceState {
   userProfile: any;
@@ -16,10 +20,14 @@ const initialState: PreferenceState = {
 export const fetchUserProfile = createAsyncThunk(
   'userProfile/fetchUserProfile',
   async (userId: string) => {
+
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+    const fullURL = `${baseURL}`;
+    // *works
+
     try {
       const response = await axios.get(
-        `https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/users/${userId}`
-        // `http://localhost:3005/users/${userId}`
+        `${fullURL}/users/${userId}`
       );
       return response.data;
     } catch (error) {
@@ -31,10 +39,14 @@ export const fetchUserProfile = createAsyncThunk(
 export const updateUserProfile = createAsyncThunk(
   'userProfile/updateUserProfile',
   async ({ userId, formData }: { userId: string; formData: any }) => {
+
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+    const fullURL = `${baseURL}`;
+    // *works
+
     try {
       const response = await axios.put(
-        `https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/users/${userId}`,
-        // `http://localhost:3005/users/${userId}`,
+        `${fullURL}/users/${userId}`,
         formData
       );
       return response.data;

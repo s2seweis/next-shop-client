@@ -1,6 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+// ### - Test
+import dotenv from 'dotenv';
+dotenv.config();
+// ###
+
 interface PasswordState {
   password: string | null;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
@@ -16,9 +21,14 @@ const initialState: PasswordState = {
 export const fetchPassword = createAsyncThunk(
   'password/fetchPassword',
   async (userId: string) => {
+
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+    const fullURL = `${baseURL}`;
+    // *works
+
     try {
       const response = await axios.get<string>(
-        `https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/password/${userId}`,
+        `${fullURL}/password/${userId}`,
       );
       return response.data;
     } catch (error) {
@@ -35,9 +45,14 @@ interface UpdatePasswordPayload {
 export const updatePassword = createAsyncThunk(
   'password/updatePassword',
   async ({ userId, formData }: UpdatePasswordPayload) => {
+
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+    const fullURL = `${baseURL}`;
+    // *works
+
     try {
       const response = await axios.put<string>(
-        `https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/password/${userId}`,
+        `${fullURL}/password/${userId}`,
         formData,
       );
       return response.data;

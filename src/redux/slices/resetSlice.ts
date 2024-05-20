@@ -1,6 +1,10 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { message } from 'antd';
+// ### - Test
+import dotenv from 'dotenv';
+dotenv.config();
+// ###
 
 interface ResetState {
   loading: boolean;
@@ -15,12 +19,19 @@ const initialState: ResetState = {
 export const requestResetPassword = createAsyncThunk(
   'reset/requestResetPassword',
   async (reqObj: any) => {
+
+    // const baseURL = 'http://localhost:3005';
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+    const fullURL = `${baseURL}`;
+    // *works
+
     try {
-      const response = await axios.post('https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/requestResetPassword', reqObj);
-      // const response = await axios.post('http://localhost:3005/requestResetPassword', reqObj);
+      const response = await axios.post(
+        `${fullURL}/requestResetPassword`
+        , reqObj);
       message.success('Go and check your emails for the reset link');
       setTimeout(() => {
-        window.location.href = '/reset/ResetMessage';
+        // window.location.href = '/reset/ResetMessage';
       }, 500);
       return response.data;
     } catch (error) {
@@ -34,11 +45,17 @@ export const requestResetPassword = createAsyncThunk(
 export const resetPassword = createAsyncThunk(
   'reset/resetPassword',
   async (reqObj: any) => {
-    console.log("line:500", reqObj);
+
+    
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+    // const baseURL = 'http://localhost:3005';
+    const fullURL = `${baseURL}`;
+    // *works
     
     try {
-      const response = await axios.post('https://nextjs-server-demo-here-9e97c1fb79e3.herokuapp.com/resetPassword', reqObj);
-      // const response = await axios.post('http://localhost:3005/resetPassword', reqObj);
+      const response = await axios.post(
+        `${fullURL}/resetPassword`,
+        reqObj);
       message.success('The Password changed successfully !!');
       setTimeout(() => {
         window.location.href = '/reset/SuccessMessage';
