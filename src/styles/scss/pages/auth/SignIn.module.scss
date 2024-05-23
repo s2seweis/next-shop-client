@@ -1,114 +1,93 @@
 // SignIn.module.scss
 
-.loginFormContainer {
-  // width: 300px;
-  // padding: 20px;
-  // background-color: #fff;
-  // border-radius: 8px;
-  // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+.loginPageContainer {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f2f5;
+  margin-top: 5%;
 }
 
-.SignInForm {
-  width: 300px;
-  padding: 30px;
-  background-color: #fff;
+.loginFormContainer {
+  background: #fff;
+  padding: 40px;
   border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  margin: 10px;
 }
 
 .loginFormTitle {
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 24px;
+  color: #1890ff;
 }
 
-.formField {
-  margin-bottom: 15px;
+.SignInForm {
+  .ant-form-item {
+    margin-bottom: 16px;
+  }
 }
 
-.loginFormContainer label {
+.inputField {
+  height: 40px;
+  border-radius: 4px;
+}
+
+.errorMsg {
+  color: red;
+  margin-bottom: 16px;
   display: block;
-  margin-bottom: 5px;
-}
-
-.loginFormContainer .inputField {
-  width: 100%;
-  padding: 10px 10px;
-  margin-left: 0px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  border-radius: 10px;
-  margin-left: -10px;
-  background-color: #f7f7f7;
-}
-
-.signInButtonContainer {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 10px;
-}
-
-.signInButton {
-  padding: 10px 15px;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.signInCredentials {
-  background-color: #0f9d58;
-  color: #fff;
-  width: 50%;
-}
-
-.signInButtonGoogle {
-  background-color: #fbbc05;
-  color: #fff;
-  width: 50%;
-}
-
-.signInButtonFacebook {
-  background-color: #4285f4;
-  color: #fff;
-  width: 50%;
-}
-
-.signInButtonGithub {
-  background-color: #2b3137;
-  color: #fff;
-  width: 50%;
-}
-
-.goToSignIn {
-  margin-top: 20px;
   text-align: center;
 }
 
-.goToSignIn a {
-  color: #333;
-  text-decoration: none;
+.signInButton {
+  height: 40px;
+  font-size: 16px;
+  border-radius: 4px;
 }
 
-.goToSignIn a:hover {
-  text-decoration: underline;
+.oauthButtonContainer {
+  width: 100%;
 }
 
-.signInButton:hover {
-  background-color: #0c7d43; /* Change background color on hover */
-  color: #fff; /* Change text color on hover */
+.signInButtonGithub {
+  background-color: #333;
+  color: #fff;
+  border: none;
+
+  &:hover {
+    background-color: #444;
+  }
 }
 
-.signInButtonGoogle:hover {
-  background-color: #e68a00; /* Change background color on hover */
+.signInButtonGoogle {
+  background-color: #db4437;
+  color: #fff;
+  border: none;
+
+  &:hover {
+    background-color: #c33c29;
+  }
 }
 
-.signInButtonFacebook:hover {
-  background-color: #2962ff; /* Change background color on hover */
+.signInButtonFacebook {
+  background-color: #3b5998;
+  color: #fff;
+  border: none;
+
+  &:hover {
+    background-color: #324a86;
+  }
 }
 
-.signInButtonGithub:hover {
-  background-color: #1e2124; /* Change background color on hover */
+.goToSignIn {
+  text-align: center;
+  margin-top: 24px;
+
+  a {
+    color: #1890ff;
+  }
 }

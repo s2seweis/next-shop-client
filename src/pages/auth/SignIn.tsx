@@ -1,45 +1,40 @@
 import React, { useRef, useState } from 'react';
 import { signIn } from 'next-auth/react';
-import Link from 'next/link'; // Import Link from Next.js
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import styles from '@/src/styles/scss/pages/auth/SignIn.module.scss'; // Import SCSS file
-import Button from '../../components/Buttons/Button/Button';
+import { Form, Input, Button, Typography, Space } from 'antd';
+import { GithubOutlined, GoogleOutlined, FacebookOutlined } from '@ant-design/icons';
 import IsAuthPublic from '@/src/utils/authHocs/isAuthPublic';
+import styles from '@/src/styles/scss/pages/auth/SignIn.module.scss'; // Import SCSS file
+import type { InputRef } from 'antd';
 
-const SignIn = () => {
+const { Title, Text } = Typography;
+
+const SignIn: React.FC = () => {
   const router = useRouter();
-  const userNameRef = useRef<HTMLInputElement>(null);
-  const passRef = useRef<HTMLInputElement>(null);
+  const userNameRef = useRef<InputRef>(null);
+  const passRef = useRef<InputRef>(null);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const email = userNameRef.current?.value || '';
-    const password = passRef.current?.value || '';
+  const onSubmit = async (values: { email: string; password: string }) => {
+    const { email, password } = values;
 
     const result = await signIn('credentials', {
       email,
       password,
-      redirect: false, // Set redirect to false to handle errors manually
+      redirect: false,
     });
 
-    // Check if signIn function returns an error
     if (result) {
-      // Check if signIn function returns an error
       if (result.error) {
         setErrorMessage('Authentication failed. Please check your credentials.');
       } else {
-        // Clear error message if sign-in successful
         setErrorMessage('');
         router.push('/');
       }
     } else {
-      // Handle the case where result is undefined
       console.error('Sign-in result is undefined.');
     }
-
-
   };
 
   const handleGitHubSignIn = async () => {
@@ -55,62 +50,62 @@ const SignIn = () => {
   };
 
   return (
-    <div
-      style={{ display: 'flex', height: '100vh', alignItems: 'center' }}
-      className={styles.loginPageContainer}
-    >
-      <div style={{ margin: 'auto' }} className={styles.loginFormContainer}>
-        <h3 className={styles.loginFormTitle}>Login</h3>
-        <form className={styles.SignInForm} onSubmit={onSubmit}>
-          <div className={styles.formField}>
-            <label htmlFor="email">E-Mail</label>
-            <input
-              type="text"
-              id="email"
-              ref={userNameRef}
-              className={styles.inputField}
-            />
-          </div>
-          <div className={styles.formField}>
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              ref={passRef}
-              className={styles.inputField}
-            />
-          </div>
-          {errorMessage && <p className={styles.errorMsg}>{errorMessage}</p>}
-          <div className={styles.signInButtonContainer}>
-            <Button
-              type="submit"
-              className={`${styles.signInCredentials} ${styles.signInButton}`}
-            >
+    <div className={styles.loginPageContainer}>
+      <div className={styles.loginFormContainer}>
+        <Title level={3} className={styles.loginFormTitle}>Login</Title>
+        <Form
+          name="signIn"
+          className={styles.SignInForm}
+          onFinish={onSubmit}
+          layout="vertical"
+        >
+          <Form.Item
+            label="E-Mail"
+            name="email"
+            rules={[{ required: true, message: 'Please input your email!' }]}
+          >
+            <Input ref={userNameRef} className={styles.inputField} />
+          </Form.Item>
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[{ required: true, message: 'Please input your password!' }]}
+          >
+            <Input.Password ref={passRef} className={styles.inputField} />
+          </Form.Item>
+          {errorMessage && <Text type="danger">{errorMessage}</Text>}
+          <Form.Item>
+            <Button type="primary" htmlType="submit" block className={styles.signInButton}>
               SIGN IN with E-Mail
             </Button>
-
+          </Form.Item>
+          <Space direction="vertical" size="middle" className={styles.oauthButtonContainer}>
             <Button
+              icon={<GithubOutlined />}
               onClick={handleGitHubSignIn}
-              className={`${styles.signInButtonGithub} ${styles.signInButton}`}
+              block
+              className={styles.signInButtonGithub}
             >
               SIGN IN with GitHub
             </Button>
-          </div>
-          <div className={styles.signInButtonContainer}>
             <Button
+              icon={<GoogleOutlined />}
               onClick={handleGoogleSignIn}
-              className={`${styles.signInButtonGoogle} ${styles.signInButton}`}
+              block
+              className={styles.signInButtonGoogle}
             >
-              SIGN IN with Google 
+              SIGN IN with Google
             </Button>
             <Button
+              icon={<FacebookOutlined />}
               onClick={handleFacebookSignIn}
-              className={`${styles.signInButtonFacebook} ${styles.signInButton}`}
+              block
+              className={styles.signInButtonFacebook}
             >
               SIGN IN with Facebook
             </Button>
-          </div>
-        </form>
+          </Space>
+        </Form>
         <div className={styles.goToSignIn}>
           <Link href="/auth/Register">Go to Register</Link>
         </div>

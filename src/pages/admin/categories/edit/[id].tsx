@@ -32,16 +32,22 @@ const EditCategoryPage = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { id } = router.query;
-
+  console.log("line:1", id);
+  
   const categories = useAppSelector((state) => state.categories.categories);
+  console.log("line:2", categories);
+  
   const status = useAppSelector((state) => state.categories.status);
+  console.log("line:3", status);
+  
 
   const [newImage, setNewImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>('');
 
   useEffect(() => {
     const categoryId = id as string;
-    if (status === 'idle' && !findCategoryById(categoryId)) {
+    if (status === 'idle' ) {
+    // if (status === 'idle' && !findCategoryById(categoryId)) {
       dispatch(fetchCategoryById(categoryId));
     }
   }, [dispatch, id, status, categories]);
@@ -77,14 +83,14 @@ const EditCategoryPage = () => {
       category_image: newImage ? newImage : values.category_image,
       key: category.key
     };
-    console.log('line:1', data);
+    console.log('line:4', data);
     
 
     dispatch(updateCategory({ categoryId: Number(category.categoryId), updatedData: data }));
   };
 
   const category = findCategoryById(id as string);
-  console.log("line:3", category);
+  console.log("line:5", category);
   
   return (
     <AdminLayout>

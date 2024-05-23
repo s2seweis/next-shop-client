@@ -1,73 +1,59 @@
 // Register.module.scss
 
-.registerContainer {
-  margin: auto;
+.registerPageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f2f5;
+  margin-top: 5%;
 }
 
-.registerForm {
-  width: 300px;
-  padding: 30px;
-  background-color: #fff;
+.registerFormContainer {
+  background: #fff;
+  padding: 40px;
   border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  margin: 10px;
 }
 
 .registerTitle {
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 24px;
+  color: #1890ff;
 }
 
-.registerInputWrapper {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 15px;
+.registerForm {
+  .ant-form-item {
+    margin-bottom: 16px;
+  }
 }
 
 .registerInput {
-  width: 100%;
-  padding: 10px 10px;
-  border: 1px solid #ccc;
+  height: 40px;
   border-radius: 4px;
-  margin-top: 5px; // Adjust margin as needed
-  margin-left: 0px;
-  border-radius: 10px;
-  background-color: #f7f7f7;
-  margin-left: -10px;
 }
 
-.registerButton {
-  width: 100%;
-  background-color: #34a853;
-  color: #fff;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
-  margin-top: 20px; // Adjust margin as needed
-}
-
-.registerButton:hover {
-  background-color: #258cd1;
-}
-
-.goToLogin {
-  margin-top: 20px;
+.errorMsg {
+  color: red;
+  margin-bottom: 16px;
+  display: block;
   text-align: center;
 }
 
-.goToLogin a {
-  color: #333;
-  text-decoration: none;
+.registerButton {
+  height: 40px;
+  font-size: 16px;
+  border-radius: 4px;
 }
 
-.goToLogin a:hover {
-  text-decoration: underline;
-}
+.goToLogin {
+  text-align: center;
+  margin-top: 24px;
 
-.registerButton:hover {
-  background-color: #0c7d43; /* Change background color on hover */
-  color: #fff; /* Change text color on hover */
+  a {
+    color: #1890ff;
+  }
 }

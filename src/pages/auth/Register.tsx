@@ -1,29 +1,24 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Link from 'next/link'; // Import Link from Next.js
-import styles from '../../styles/scss/pages/auth/Register.module.scss'; // Import SCSS file
+import Link from 'next/link';
+import { Form, Input, Button, Typography, notification } from 'antd';
 import IsAuthPublic from '@/src/utils/authHocs/isAuthPublic';
+import styles from '../../styles/scss/pages/auth/Register.module.scss'; // Import SCSS file
+import dotenv from 'dotenv';
+dotenv.config();
 
-interface RegisterFormProps {
-  onRegisterSuccess: () => void;
-}
+const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+const fullURL = `${baseURL}/register`;
 
-const Register: React.FC<RegisterFormProps> = ({ onRegisterSuccess }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const { Title } = Typography;
 
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
+const Register: React.FC = () => {
+  const [form] = Form.useForm();
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
+  const handleRegister = async (values: { name: string; email: string; username: string; password: string }) => {
     try {
-      const response = await axios.post('http://your-api-server/register', {
-        name,
-        email,
-        username,
-        password,
-      });
+      const response = await axios.post(fullURL, values);
 
       // Assuming your server returns a token upon successful registration
       const token = response.data.token;
@@ -31,69 +26,66 @@ const Register: React.FC<RegisterFormProps> = ({ onRegisterSuccess }) => {
       // Store the token in local storage or cookies as needed
       localStorage.setItem('token', token);
 
-      // Trigger the onRegisterSuccess callback to handle the successful registration on the parent component
-      onRegisterSuccess();
+      // Show success notification
+      notification.success({
+        message: 'Registration Successful',
+        description: 'You have successfully registered. Redirecting to login...',
+      });
+
+      // Optionally, you can redirect to the login page or any other page
+      // router.push('/auth/SignIn');
     } catch (error) {
       console.error('Registration failed:', error);
-      // Handle registration failure, e.g., display an error message to the user
+      setErrorMessage('Registration failed. Please try again.');
     }
   };
 
   return (
-    <div style={{ display: 'flex', margin: 'auto', height: '100vh' }}>
-      <div className={styles.registerContainer}>
-        <h3 className={styles.registerTitle}>Register</h3>
-        <form className={styles.registerForm} onSubmit={handleRegister}>
-          <div className={styles.registerInputWrapper}>
-            <label>
-              Name:
-              <input
-                className={styles.registerInput}
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </label>
-          </div>
-          <div className={styles.registerInputWrapper}>
-            <label>
-              Email:
-              <input
-                className={styles.registerInput}
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </label>
-          </div>
-          <div className={styles.registerInputWrapper}>
-            <label>
-              Username:
-              <input
-                className={styles.registerInput}
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </label>
-          </div>
-          <div className={styles.registerInputWrapper}>
-            <label>
-              Password:
-              <input
-                className={styles.registerInput}
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </label>
-          </div>
-          <div className={styles.registerButtonContainer}>
-            <button className={styles.registerButton} type="submit">
+    <div className={styles.registerPageContainer}>
+      <div className={styles.registerFormContainer}>
+        <Title level={3} className={styles.registerTitle}>Register</Title>
+        <Form
+          form={form}
+          name="register"
+          className={styles.registerForm}
+          onFinish={handleRegister}
+          layout="vertical"
+        >
+          <Form.Item
+            label="Name"
+            name="name"
+            rules={[{ required: true, message: 'Please input your name!' }]}
+          >
+            <Input className={styles.registerInput} />
+          </Form.Item>
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[{ required: true, message: 'Please input your email!', type: 'email' }]}
+          >
+            <Input className={styles.registerInput} />
+          </Form.Item>
+          <Form.Item
+            label="Username"
+            name="username"
+            rules={[{ required: true, message: 'Please input your username!' }]}
+          >
+            <Input className={styles.registerInput} />
+          </Form.Item>
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[{ required: true, message: 'Please input your password!' }]}
+          >
+            <Input.Password className={styles.registerInput} />
+          </Form.Item>
+          {errorMessage && <Typography.Text type="danger">{errorMessage}</Typography.Text>}
+          <Form.Item>
+            <Button type="primary" htmlType="submit" block className={styles.registerButton}>
               Register
-            </button>
-          </div>
-        </form>
+            </Button>
+          </Form.Item>
+        </Form>
         <div className={styles.goToLogin}>
           <Link href="/auth/SignIn">Go to SignIn</Link>
         </div>

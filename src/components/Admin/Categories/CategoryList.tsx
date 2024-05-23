@@ -16,6 +16,7 @@ interface Category {
 const CategoryList: React.FC = () => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector((state) => state.categories.categories);
+  console.log("line:1", categories);
   const status = useAppSelector((state) => state.categories.status);
   const [list, setList] = useState<Category[]>([]);
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);

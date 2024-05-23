@@ -49,13 +49,15 @@ export const fetchCategories = createAsyncThunk<Category[]>(
 export const fetchCategoryById = createAsyncThunk<Category, string>(
   'categories/fetchCategoryById',
   async (categoryId) => {
+    console.log("line:111", categoryId);
+    
     const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
     const fullURL = `${baseURL}`;
     // *works
 
     try {
       const response = await axios.get<Category>(
-        `${fullURL}/category${categoryId}`,
+        `${fullURL}/category/${categoryId}`,
       );
       return response.data;
     } catch (error) {
