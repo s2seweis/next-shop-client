@@ -5,11 +5,12 @@ import { useEffect } from 'react';
 // import { useSession } from 'next-auth/react';
 import { useAppSelector } from '@/src/redux/hooks';
 import Loader from '@/src/components/Loader/Loader';
-import CategoryList from '@/src/components/Admin/Categories/CategoryList';
+import UserList from '@/src/components/Admin/Users/UserList';
 
-const AdminCategories = () => {
+const AdminUsers = () => {
 
   const userProfile = useAppSelector((state) => state.profile.userProfile);
+  
   // const { data: session } = useSession();
   const key = userProfile?.role;
   const router = useRouter();
@@ -27,7 +28,7 @@ const AdminCategories = () => {
           <div>
             <Nav></Nav>
             {/* <h4>Categories</h4> */}
-            <CategoryList/>
+            <UserList/>
           </div>
         </AdminLayout>
       ) : (
@@ -40,4 +41,4 @@ const AdminCategories = () => {
   );
 };
 
-export default AdminCategories;
+export default AdminUsers;
