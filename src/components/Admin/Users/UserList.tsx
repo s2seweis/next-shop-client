@@ -1,103 +1,118 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Modal, Input, Button, Badge, Avatar, Space } from 'antd';
+import { Table, Modal, Input, Button, Badge, Space, notification } from 'antd';
 import Link from 'next/link';
 import { ArrowLeftOutlined, ReloadOutlined } from '@ant-design/icons';
-import { fetchCategories, deleteCategory } from '../../../redux/slices/categorySlice';
+import { fetchUsers, deleteUser } from '../../../redux/slices/userSlice';
 import { useAppSelector, useAppDispatch } from '@/src/redux/hooks';
 
-interface Category {
-  categoryId: number;
-  categoryName: string;
-  categoryImage: string;
-  numberOfProducts: number;
-  key?: string;
+interface User {
+  userId: number;
+  fullName: string;
+  userImage: string;
+  email: string;
+  username: string;
+  role: string;
+  blocked: boolean;
 }
 
-const CategoryList: React.FC = () => {
+const UserList: React.FC = () => {
   const dispatch = useAppDispatch();
-  const categories = useAppSelector((state) => state.categories.categories);
-  console.log("line:1", categories);
-  const status = useAppSelector((state) => state.categories.status);
-  const [list, setList] = useState<Category[]>([]);
+  const users = useAppSelector((state) => state.users.users);
+  const status = useAppSelector((state) => state.users.status);
+  const [list, setList] = useState<User[]>([]);
   const [confirmLoading, setConfirmLoading] = useState<boolean>(false);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [categoryIdToDelete, setCategoryIdToDelete] = useState<number | null>(null);
-  const [keyToDelete, setKeyToDelete] = useState<string | null>(null);
+  const [userIdToDelete, setUserIdToDelete] = useState<number | null>(null);
+  console.log("line:1000", userIdToDelete);
   const [searchText, setSearchText] = useState<string>('');
 
   useEffect(() => {
-    dispatch(fetchCategories());
+    dispatch(fetchUsers());
   }, [dispatch]);
 
   useEffect(() => {
     if (status === 'succeeded') {
-      setList(categories);
+      setList(users);
     }
-  }, [status, categories]);
+  }, [status, users]);
 
-  const handleDelete = (categoryId: number, key?: string) => {
+  const handleDelete = (userId: number) => {
     setModalVisible(true);
-    setCategoryIdToDelete(categoryId);
-    setKeyToDelete(key || null);
+    setUserIdToDelete(userId);
   };
 
   const handleConfirmDelete = () => {
-    if (categoryIdToDelete !== null) {
+    if (userIdToDelete !== null) {
       setConfirmLoading(true);
-      dispatch(deleteCategory({ categoryId: categoryIdToDelete, key: keyToDelete }))
+      dispatch(deleteUser({ userId: userIdToDelete }))
         .then(() => {
           setConfirmLoading(false);
           setModalVisible(false);
-          dispatch(fetchCategories()); // Fetch categories again after deletion
+          dispatch(fetchUsers()); // Fetch users again after deletion
+          notification.success({
+            message: 'User Deleted',
+            description: 'The user has been deleted successfully.',
+          });
+        })
+        .catch(() => {
+          setConfirmLoading(false);
+          notification.error({
+            message: 'Deletion Failed',
+            description: 'There was an error deleting the user.',
+          });
         });
     }
   };
 
   const handleCancelDelete = () => {
     setModalVisible(false);
-    setCategoryIdToDelete(null);
-    setKeyToDelete(null);
+    setUserIdToDelete(null);
   };
 
   const handleRefresh = () => {
-    dispatch(fetchCategories());
+    dispatch(fetchUsers());
   };
 
-  // const filteredList = list.filter((category) => 
-  //   category.categoryName.toLowerCase().includes(searchText.toLowerCase())
-  // );
-
-  const filteredList = list.filter((category) => {
-    return category.categoryName && category.categoryName.toLowerCase().includes(searchText.toLowerCase());
+  const filteredList = list.filter((user) => {
+    return user.fullName && user.fullName.toLowerCase().includes(searchText.toLowerCase());
   });
 
   const columns = [
     {
-      title: 'Category Image',
-      dataIndex: 'categoryImage',
-      key: 'categoryImage',
-      render: (text: string) => <Avatar src={text} />,
-      // width: 80
+      title: 'Full Name',
+      dataIndex: 'fullName',
+      key: 'fullName',
     },
     {
-      title: 'Category',
-      dataIndex: 'categoryName',
-      key: 'categoryName',
+      title: 'E-mail',
+      dataIndex: 'email',
+      key: 'email',
     },
     {
-      title: 'Products',
-      dataIndex: 'numberOfProducts',
-      key: 'numberOfProducts',
+      title: 'Blocked',
+      dataIndex: 'blocked',
+      key: 'blocked',
+      render: (blocked: boolean) =>
+        blocked ? (
+          <Badge status="success" text="Active" />
+        ) : (
+          <Badge status="error" text="Blocked" />
+        ),
+    },
+    {
+      title: 'Role',
+      dataIndex: 'role',
+      key: 'role',
     },
     {
       title: 'Actions',
       key: 'action',
-      render: (_: any, record: Category) => (
+      render: (_: any, record: User) => (
         <Space size="middle">
-          <Link href={`/admin/categories/edit/${record.categoryId}`} passHref>
+          <Link href={`/admin/users/edit/${record.userId}`} passHref>
             Edit
           </Link>
-          <a onClick={() => handleDelete(record.categoryId, record.key)}>Delete</a>
+          <a onClick={() => handleDelete(record.userId)}>Delete</a>
         </Space>
       ),
     },
@@ -127,7 +142,7 @@ const CategoryList: React.FC = () => {
           </Button>
         </Link>
         <Input
-          placeholder="Category Name ..."
+          placeholder="Search by Name ..."
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           style={{ maxWidth: '300px', marginRight: '10px' }}
@@ -150,9 +165,6 @@ const CategoryList: React.FC = () => {
             </sup>
           )}
         </Badge>
-        <Link href="/admin/categories/AddCategory" passHref>
-          <Button type="primary">Add Category</Button>
-        </Link>
         <Button
           style={{ minWidth: '40px', marginRight: '10px', marginLeft: '10px' }}
           type="default"
@@ -164,6 +176,7 @@ const CategoryList: React.FC = () => {
         columns={columns}
         dataSource={filteredList}
         pagination={{ pageSize: 7 }}
+        rowKey="userId"
       />
       <Modal
         title="Confirm Delete"
@@ -172,10 +185,10 @@ const CategoryList: React.FC = () => {
         confirmLoading={confirmLoading}
         onCancel={handleCancelDelete}
       >
-        <p>Are you sure you want to delete this category?</p>
+        <p>Are you sure you want to delete this user?</p>
       </Modal>
     </div>
   );
 };
 
-export default CategoryList;
+export default UserList;

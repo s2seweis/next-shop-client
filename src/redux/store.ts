@@ -6,6 +6,7 @@ import categoriesReducer from '@/src/redux/slices/categorySlice';
 import counterReducer from '@/src/redux/slices/counterSlice';
 import resetReducer from '@/src/redux/slices/resetSlice';
 import notificationReducer from '@/src/redux/slices/notificationSlice';
+import userReducer from '@/src/redux/slices/userSlice';
 
 export const store = configureStore({
   reducer: {
@@ -15,7 +16,8 @@ export const store = configureStore({
     counter: counterReducer,
     reset: resetReducer,
     notification: notificationReducer,
-    categories: categoriesReducer
+    categories: categoriesReducer,
+    users: userReducer
   },
 });
 

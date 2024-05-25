@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { fetchCategoryById, updateCategory } from '../../../../redux/slices/categorySlice';
+import {
+  fetchCategoryById,
+  updateCategory,
+} from '../../../../redux/slices/categorySlice';
 import { useAppSelector, useAppDispatch } from '@/src/redux/hooks';
 import {
   Typography,
@@ -12,8 +15,9 @@ import {
   Button,
   Upload,
   UploadProps,
+  Space,
 } from 'antd';
-import { Formik } from 'formik';
+import { Formik, FormikHandlers } from 'formik';
 import Link from 'next/link';
 import AdminLayout from '@/src/components/Layout/Admin/AdminLayout';
 import { UploadOutlined } from '@ant-design/icons';
@@ -32,28 +36,27 @@ const EditCategoryPage = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { id } = router.query;
-  console.log("line:1", id);
-  
+
   const categories = useAppSelector((state) => state.categories.categories);
-  console.log("line:2", categories);
-  
   const status = useAppSelector((state) => state.categories.status);
-  console.log("line:3", status);
-  
 
   const [newImage, setNewImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>('');
+  const [urlPreview, setUrlPreview] = useState<string>('');
+  const [isUrlUsed, setIsUrlUsed] = useState<boolean>(false);
+  const [isUploadUsed, setIsUploadUsed] = useState<boolean>(false);
 
   useEffect(() => {
     const categoryId = id as string;
-    if (status === 'idle' ) {
-    // if (status === 'idle' && !findCategoryById(categoryId)) {
+    if (status === 'idle') {
       dispatch(fetchCategoryById(categoryId));
     }
   }, [dispatch, id, status, categories]);
 
   const findCategoryById = (categoryId: string): Category | undefined => {
-    return categories.find((category) => category.categoryId === Number(categoryId));
+    return categories.find(
+      (category) => category.categoryId === Number(categoryId),
+    );
   };
 
   const handleUploadChange: UploadProps['onChange'] = ({ file }) => {
@@ -66,32 +69,55 @@ const EditCategoryPage = () => {
       };
       reader.readAsDataURL(file.originFileObj);
       setNewImage(file.originFileObj);
+      setIsUploadUsed(true);
+      setIsUrlUsed(false);
+      setUrlPreview('');
     }
   };
 
-  const handleInputChange = (handleChange) => (e) => {
-    console.log(`${e.target.name} changed to ${e.target.value}`);
+  const handleInputChange = (handleChange: FormikHandlers['handleChange']) => (e: { target: { name: any; value: any; }; }) => {
+    const { name } = e.target;
+    if (name === 'category_image') {
+      setImagePreview('');
+      setUrlPreview('');
+      setIsUrlUsed(false);
+      setIsUploadUsed(false);
+    }
     handleChange(e);
   };
 
-  const handleSubmit = (values, category) => {
-    console.log("line:1", values);
-    console.log("line:2", category);
-    
+  const handleShowPreview = () => {
+    setUrlPreview(
+      (document.getElementById('category_image') as HTMLInputElement).value,
+    );
+    setIsUrlUsed(true);
+    setIsUploadUsed(false);
+    setImagePreview('');
+  };
+
+  const removePreviewUrl = () => {
+    setUrlPreview('');
+    setIsUrlUsed(false);
+  };
+
+  const removePreviewImage = () => {
+    setImagePreview('');
+    setIsUploadUsed(false);
+    setNewImage(null)
+  };
+
+  const handleSubmit = (values: { category_name?: string; category_image: any; number_of_products?: number; }, category: Category) => {
     const data = {
       ...values,
       category_image: newImage ? newImage : values.category_image,
-      key: category.key
+      key: category.key,
     };
-    console.log('line:4', data);
-    
 
     dispatch(updateCategory({ categoryId: Number(category.categoryId), updatedData: data }));
   };
 
   const category = findCategoryById(id as string);
-  console.log("line:5", category);
-  
+
   return (
     <AdminLayout>
       <Link href="/admin/AdminCategories">
@@ -123,29 +149,95 @@ const EditCategoryPage = () => {
                   }}
                 >
                   <Form.Item label="Category Name" name="category_name">
-                    <Input value={values.category_name} onChange={handleInputChange(handleChange)} />
+                    <Input
+                      value={values.category_name}
+                      onChange={handleInputChange(handleChange)}
+                    />
                   </Form.Item>
                   <Form.Item label="Category Image URL" name="category_image">
-                    <Input value={values.category_image} onChange={handleInputChange(handleChange)} />
+                    <Input
+                      id="category_image"
+                      value={values.category_image}
+                      onChange={handleInputChange(handleChange)}
+                      style={{
+                        width: 'calc(100% - 120px)',
+                        marginRight: '8px',
+                      }}
+                      disabled={isUploadUsed}
+                    />
+                    <Button onClick={handleShowPreview} disabled={isUploadUsed}>
+                      Add
+                    </Button>
                   </Form.Item>
+                  {urlPreview && (
+                    <Space
+                      direction="vertical"
+                      size="middle"
+                      style={{ display: 'flex' }}
+                    >
+                      <img
+                        src={urlPreview}
+                        alt="Category Preview"
+                        style={{
+                          maxWidth: '100%',
+                          marginTop: '1rem',
+                          maxHeight: '200px',
+                          display: 'block',
+                        }}
+                      />
+                      <Button
+                        onClick={removePreviewUrl}
+                        style={{ marginLeft: '50px' }}
+                      >
+                        Remove 1
+                      </Button>
+                    </Space>
+                  )}
                   <Form.Item label="Or Upload New Image" name="upload_image">
                     <Upload
                       accept="image/*"
                       showUploadList={false}
                       onChange={handleUploadChange}
+                      disabled={isUrlUsed}
                     >
-                      <Button icon={<UploadOutlined />}>Upload New Image</Button>
+                      <Button icon={<UploadOutlined />} disabled={isUrlUsed}>
+                        Upload New Image
+                      </Button>
                     </Upload>
                     {imagePreview && (
+                      <Space
+                      direction="vertical"
+                      size="middle"
+                      style={{ display: 'flex' }}
+                      >
                       <img
                         src={imagePreview}
                         alt="Category Preview"
-                        style={{ maxWidth: '100%', marginTop: '1rem', maxHeight: '200px', display: 'block' }}
-                      />
+                        style={{
+                          maxWidth: '100%',
+                          marginTop: '1rem',
+                          maxHeight: '200px',
+                          display: 'block',
+                        }}
+                        />
+                    <Button
+                      onClick={removePreviewImage}
+                      style={{ marginLeft: '50px' }}
+                    >
+                      Remove 2
+                    </Button>
+                      </Space>
                     )}
                   </Form.Item>
-                  <Form.Item label="Number of Products" name="number_of_products">
-                    <Input value={values.number_of_products} onChange={handleInputChange(handleChange)} type="number" />
+                  <Form.Item
+                    label="Number of Products"
+                    name="number_of_products"
+                  >
+                    <Input
+                      value={values.number_of_products}
+                      onChange={handleInputChange(handleChange)}
+                      type="number"
+                    />
                   </Form.Item>
                   <Form.Item>
                     <Button type="primary" htmlType="submit">
