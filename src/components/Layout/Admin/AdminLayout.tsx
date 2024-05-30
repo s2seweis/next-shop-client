@@ -1,11 +1,11 @@
 import React, { ReactNode } from 'react';
 import AdminNavbar from './AdminNavbar';
-import AdminSidebar from './AdminSidebar';
+// import AdminSidebar from './AdminSidebar';
 import Sidebar from '../Public/Sidebar';
 import { SidebarProvider } from '../../../utils/context/SidebarContext';
 import styles from '../../../styles/scss/layout/admin/AdminLayout.module.scss';
 import Footer from '../Admin/FooterAdmin';
-// import { Playground } from './AdminSidebar/Playground';
+import { AdminSidebarPro} from './AdminSidebarPro/AdminSidebarPro';
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -17,11 +17,11 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       <AdminNavbar />
       <div style={{ 
         display: 'flex', 
-        // height: '90vh',
-        height:"auto"
+        height: '91vh',
+        // height:"auto"
         }}>
-        <AdminSidebar />
-        {/* <Playground/> */}
+        {/* <AdminSidebar /> */}
+        <AdminSidebarPro/>
         <Sidebar/>
         
         <main

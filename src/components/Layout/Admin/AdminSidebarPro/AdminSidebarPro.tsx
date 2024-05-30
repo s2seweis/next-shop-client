@@ -7,20 +7,21 @@ import {
   menuClasses,
   MenuItemStyles,
 } from './src';
-import { Diamond } from './icons/Diamond';
-import { BarChart } from './icons/BarChart';
-import { Global } from './icons/Global';
-import { InkBottle } from './icons/InkBottle';
-import { Book } from './icons/Book';
-import { Calendar } from './icons/Calendar';
-import { ShoppingCart } from './icons/ShoppingCart';
-import { Service } from './icons/Service';
+
+import { Diamond } from '@/src/components/Layout/Admin/AdminSidebarPro/Icons/Diamond';
+import { BarChart } from '@/src/components/Layout/Admin/AdminSidebarPro/Icons/BarChart';
+import { Global } from '@/src/components/Layout/Admin/AdminSidebarPro/Icons/Global';
+import { InkBottle } from '@/src/components/Layout/Admin/AdminSidebarPro/Icons/InkBottle';
+import { Book } from '@/src/components/Layout/Admin/AdminSidebarPro/Icons/Book';
+import { Calendar } from '@/src/components/Layout/Admin/AdminSidebarPro/Icons/Calendar';
+import { ShoppingCart } from '@/src/components/Layout/Admin/AdminSidebarPro/Icons/ShoppingCart';
+import { Service } from '@/src/components/Layout/Admin/AdminSidebarPro/Icons/Service';
+import { Users } from '@/src/components/Layout/Admin/AdminSidebarPro/Icons/Users';
 import { Switch } from './Components/Switch';
-import { SidebarHeader } from './components/SidebarHeader';
-import { SidebarFooter } from './components/SidebarFooter';
-import { Badge } from './components/Badge';
+import { SidebarHeader } from '@/src/components/Layout/Admin/AdminSidebarPro/Components/SidebarHeader';
+import { Badge } from '@/src/components/Layout/Admin/AdminSidebarPro/Components/Badge';
 import { Typography } from './components/Typography';
-import { PackageBadges } from './components/PackageBadges';
+import Link from 'next/link';
 
 type Theme = 'light' | 'dark';
 
@@ -70,28 +71,22 @@ const hexToRgba = (hex: string, alpha: number) => {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
 
-export const Playground: React.FC = () => {
+export const AdminSidebarPro: React.FC = () => {
   const [collapsed, setCollapsed] = React.useState(true);
   const [toggled, setToggled] = React.useState(false);
   const [broken, setBroken] = React.useState(false);
-  const [rtl, setRtl] = React.useState(false);
-  const [hasImage, setHasImage] = React.useState(false);
-  const [theme, setTheme] = React.useState<Theme>('light');
-
-  // handle on RTL change event
-  const handleRTLChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRtl(e.target.checked);
-  };
+  console.log("line:100", broken);
+  
+  const [rtl] = React.useState(false);
+  console.log("line:101", rtl);
+  
+  const [hasImage] = React.useState(false);
+  const [theme] = React.useState<Theme>('light');
 
   // handle on theme change event
-  const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTheme(e.target.checked ? 'dark' : 'light');
-  };
-
-  // handle on image change event
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setHasImage(e.target.checked);
-  };
+  // const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setTheme(e.target.checked ? 'dark' : 'light');
+  // };
 
   const menuItemStyles: MenuItemStyles = {
     root: {
@@ -160,10 +155,10 @@ export const Playground: React.FC = () => {
         <div
           style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
         >
-          <SidebarHeader
+          {/* <SidebarHeader
             rtl={rtl}
             style={{ marginBottom: '24px', marginTop: '16px' }}
-          />
+          /> */}
           <div style={{ flex: 1, marginBottom: '32px' }}>
             <div style={{ padding: '0 24px', marginBottom: '8px' }}>
               <Typography
@@ -188,8 +183,9 @@ export const Playground: React.FC = () => {
                 <MenuItem> Line charts</MenuItem>
                 <MenuItem> Bar charts</MenuItem>
               </SubMenu>
-              <SubMenu label="Maps" icon={<Global />}>
-                <MenuItem> Google maps</MenuItem>
+              <SubMenu label="Users" icon={<Users />}>
+              {/* <Link href="/admin/docs">Docs</Link> */}
+                <MenuItem><Link href="/admin/AdminUsers">Users</Link></MenuItem>
                 <MenuItem> Open street maps</MenuItem>
               </SubMenu>
               <SubMenu label="Theme" icon={<InkBottle />}>
@@ -244,7 +240,6 @@ export const Playground: React.FC = () => {
               </MenuItem>
             </Menu>
           </div>
-          {/* <SidebarFooter collapsed={collapsed} /> */}
 
           {/* ### */}
           <Menu menuItemStyles={menuItemStyles}>
@@ -259,72 +254,25 @@ export const Playground: React.FC = () => {
               </div>
             </MenuItem>
           </Menu>
+          {/* <Menu menuItemStyles={menuItemStyles}>
+            <MenuItem>
+              <div style={{ marginBottom: 16 }}>
+                <Switch
+                  id="collapse"
+                  checked={collapsed}
+                  onChange={() => setCollapsed(!collapsed)}
+                  // label="Collapse"
+                />
+              </div>
+            </MenuItem>
+          </Menu> */}
           {/* ### */}
         </div>
       </Sidebar>
 
-      {/* <main>
-        <div style={{ padding: '16px 24px', color: '#44596e' }}>
-          <div style={{ marginBottom: '16px' }}>
-            {broken && (
-              <button
-                className="sb-button"
-                onClick={() => setToggled(!toggled)}
-              >
-                Toggle
-              </button>
-            )}
-          </div>
-          <div style={{ marginBottom: '48px' }}>
-            <Typography variant="h4" fontWeight={600}>
-              React Pro Sidebar1
-            </Typography>
-            <Typography variant="body2">
-              React Pro Sidebar provides a set of components for creating high
-              level and customizable side navigation
-            </Typography>
-            <PackageBadges />
-          </div>
-
-          <div style={{ padding: '0 8px' }}>
-            <div style={{ marginBottom: 16 }}>
-              <Switch
-                id="collapse"
-                checked={collapsed}
-                onChange={() => setCollapsed(!collapsed)}
-                label="Collapse"
-              />
-            </div>
-
-            <div style={{ marginBottom: 16 }}>
-              <Switch
-                id="rtl"
-                checked={rtl}
-                onChange={handleRTLChange}
-                label="RTL"
-              />
-            </div>
-
-            <div style={{ marginBottom: 16 }}>
-              <Switch
-                id="theme"
-                checked={theme === 'dark'}
-                onChange={handleThemeChange}
-                label="Dark theme"
-              />
-            </div>
-
-            <div style={{ marginBottom: 16 }}>
-              <Switch
-                id="image"
-                checked={hasImage}
-                onChange={handleImageChange}
-                label="Image"
-              />
-            </div>
-          </div>
-        </div>
-      </main> */}
+      <main>
+        
+      </main>
     </div>
   );
 };

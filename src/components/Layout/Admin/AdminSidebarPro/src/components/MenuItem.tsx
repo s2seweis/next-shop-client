@@ -158,6 +158,7 @@ export const MenuItemFR: React.ForwardRefRenderFunction<HTMLLIElement, MenuItemP
       active={active}
       buttonStyles={getMenuItemStyles('button')}
       rootStyles={rootStyles}
+      // style={{border:"1px solid black"}}
     >
       <MenuButton
         className={classnames(menuClasses.button, sharedClasses)}

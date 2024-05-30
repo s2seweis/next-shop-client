@@ -1,6 +1,6 @@
 import React from 'react';
 // import { IconProps } from './types';
-import { IconProps } from '@/src/components/Layout/Admin/AdminSidebar/Icons/types';
+import { IconProps } from '@/src/components/Layout/Admin/AdminSidebarPro/Icons/types';
 
 export const Diamond: React.FC<IconProps> = ({ size = 18, ...rest }) => {
   return (
